@@ -1,5 +1,5 @@
-プログラミング用フォント Ricty Diminished Mod (仮)
-===================================================
+プログラミング用フォント Ricty Diminished Neo
+==============================================
 
 既にサポートされなくなった [Ricty Diminished](https://github.com/edihbrandon/RictyDiminished) を、
 [Inconsolata LGC](https://github.com/MihailJP/Inconsolata-LGC) ベースに変更したものです。
