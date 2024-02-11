@@ -10,29 +10,38 @@ PACKAGES=RictyDiminishedNeo.tar.xz
 .PHONY: all
 all: ${TARGETS}
 
-RictyDiminishedNeo.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminished-Regular.ttf
+.INTERMEDIATE: ${TARGETS:.ttf=.ttx} ${TARGETS:.ttf=.raw.ttf} ${TARGETS:.ttf=.raw.ttx}
+
+RictyDiminishedNeo.raw.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminished-Regular.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeo-Bold.ttf: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminished-Bold.ttf
+RictyDiminishedNeo-Bold.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminished-Bold.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeo-Italic.ttf: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd RictyDiminished/RictyDiminished-Regular.ttf
+RictyDiminishedNeo-Italic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd RictyDiminished/RictyDiminished-Regular.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeo-BoldItalic.ttf: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd RictyDiminished/RictyDiminished-Bold.ttf
+RictyDiminishedNeo-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd RictyDiminished/RictyDiminished-Bold.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf
+RictyDiminishedNeoDiscord.raw.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord-Bold.ttf: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished/RictyDiminishedDiscord-Regular.ttf
+RictyDiminishedNeoDiscord-Bold.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished/RictyDiminishedDiscord-Regular.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord-Italic.ttf: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf
+RictyDiminishedNeoDiscord-Italic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord-BoldItalic.ttf: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished/RictyDiminishedDiscord-Regular.ttf
+RictyDiminishedNeoDiscord-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished/RictyDiminishedDiscord-Regular.ttf
 	./mkfont.py $@ $^
+
+%.raw.ttx: %.raw.ttf
+	ttx -o $@ $<
+%.ttx: %.raw.ttx
+	cat $< | sed -e '/isFixedPitch/s/value=".*"/value="1"/' -e '' -e '/bProportion/s/value=".*"/value="9"/' > $@
+%.ttf: %.ttx
+	ttx -o $@ $<
 
 .PHONY: dist
 dist: ${PACKAGES}
@@ -46,4 +55,5 @@ RictyDiminishedNeo.tar.xz: ${TARGETS} ${DOCUMENTS}
 .PHONY: clean
 clean:
 	-rm -f ${TARGETS} ${PACKAGES}
+	-rm -f ${TARGETS:.ttf=.ttx} ${TARGETS:.ttf=.raw.ttf} ${TARGETS:.ttf=.raw.ttx}
 	-rm -rf ${PACKAGES:.tar.xz=}
