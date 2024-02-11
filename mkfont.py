@@ -68,6 +68,37 @@ if font.italicangle != 0:
 			ricty.selection.select(("more",), glyph)
 	ricty.transform(psMat.skew(radians(-font.italicangle)), ("round",))
 
+if re.search('Discord', ricty.fontname):
+	tmpname = font.fontname.replace("RictyDiminishedNeo", "RictyDiminishedNeoDiscord")
+	font.fontname = tmpname
+	tmpname = font.fullname.replace("Ricty Diminished Neo", "Ricty Diminished Neo Discord")
+	font.fullname = tmpname
+	font.familyname = "Ricty Diminished Neo Discord"
+
+	discord = ricty
+	if len(argv) > 4:
+		discord = fontforge.open(argv[4])
+
+	modified_glyphs = [
+		"asterisk", "plus", "comma", "hyphen", "period",
+		"zero", "seven", "colon", "semicolon", "less", "equal", "greater",
+		"D", "Z", "asciicircum", "z", "bar", "asciitilde",
+		# "quotedbl", "quotesingle", "grave",
+	]
+	if font.italicangle == 0:
+		modified_glyphs += ["l", "r"]
+	font.selection.none()
+	discord.selection.none()
+	for glyph in modified_glyphs:
+		font.selection.select(("more",), glyph)
+		discord.selection.select(("more",), glyph)
+	discord.copy()
+	font.paste()
+	font.correctDirection()
+	if re.search('Bold', font.fontname):
+		font.round()
+		font.changeWeight(30 * 500 / 613, "LCG", 0, 0.9, "squish")
+
 ricty.removeLookup(ricty.gsub_lookups[4])
 
 font.mergeFonts(ricty)
