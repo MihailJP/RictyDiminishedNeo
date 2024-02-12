@@ -1,4 +1,4 @@
-#!/usr/bin/env fontforge -script
+#!/usr/bin/env fontforge
 
 from sys import argv
 from math import radians
