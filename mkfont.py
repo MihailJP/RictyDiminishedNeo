@@ -27,7 +27,7 @@ Copyright (c) 2006-2013 itouhiro
 Copyright (c) 2002-2013 M+ FONTS PROJECT
 Copyright (c) 2010-2012 Dimosthenis Kaponis
 Copyright (c) 2012-2024 MihailJP"""
-font.version = "0.2"
+font.version = "0.2.1"
 
 ricty = fontforge.open(argv[3])
 font.upos = ricty.upos
