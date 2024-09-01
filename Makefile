@@ -37,11 +37,11 @@ RictyDiminishedNeoDiscord-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Bo
 	./mkfont.py $@ $^
 
 %.raw.ttx: %.raw.ttf
-	ttx -o $@ $<
+	ttx -t post -t "OS/2" -o $@ $<
 %.ttx: %.raw.ttx
 	cat $< | sed -e '/isFixedPitch/s/value=".*"/value="1"/' -e '' -e '/bProportion/s/value=".*"/value="9"/' > $@
-%.ttf: %.ttx
-	ttx -o $@ $<
+%.ttf: %.raw.ttf %.ttx
+	ttx -o $@ -m $^
 
 .PHONY: dist
 dist: ${PACKAGES}
