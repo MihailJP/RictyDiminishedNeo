@@ -62,6 +62,15 @@ font.os2_supxsize = ricty.os2_supxsize
 font.os2_supyoff = ricty.os2_supyoff
 font.os2_supysize = ricty.os2_supysize
 
+rejected_glyphs = []
+for glyph in font:
+	if re.search(r'[^v]+circle($|\.)', glyph):
+		rejected_glyphs += [glyph]
+	elif re.search(r'\.smallnarrow', glyph):
+		rejected_glyphs += [glyph]
+for glyph in rejected_glyphs:
+	font.removeGlyph(glyph)
+
 if font.italicangle != 0:
 	ricty.selection.none()
 	for glyph in ricty:
