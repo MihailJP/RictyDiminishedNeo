@@ -109,8 +109,6 @@ if re.search('Discord', ricty.fontname):
 		font.round()
 		font.changeWeight(30 * 500 / 613, "LCG", 0, 0.9, "squish")
 
-ricty.removeLookup(ricty.gsub_lookups[4])
-
 font.mergeFonts(ricty)
 font.encoding = "UnicodeFull"
 
