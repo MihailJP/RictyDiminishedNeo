@@ -21,13 +21,14 @@ font.transform(psMat.scale(634/735), ("round",))
 font.transform(psMat.translate(-8, 0), ("round",))
 for glyph in font.selection.byGlyphs:
 	glyph.width = 500
-font.copyright = """Copyright (c) 2012-2014 Yasunori Yusa
+font.copyright = """Copyright (c) 2011-2017 Yasunori Yusa
 Copyright (c) 2006 Raph Levien
-Copyright (c) 2006-2013 itouhiro
-Copyright (c) 2002-2013 M+ FONTS PROJECT
 Copyright (c) 2010-2012 Dimosthenis Kaponis
-Copyright (c) 2012-2024 MihailJP"""
-font.version = "0.6"
+Copyright (c) 2020 itouhiro
+Copyright (C) 2002-2019 M+ FONTS PROJECT
+Copyright (c) 2012-2024 MihailJP
+SIL Open Font License Version 1.1 (http://scripts.sil.org/ofl)"""
+font.version = "0.7"
 font.sfntRevision = None
 
 ricty = fontforge.open(argv[3])
