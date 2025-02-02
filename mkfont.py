@@ -140,7 +140,7 @@ else:
 
 # Making cache
 if makingCache:
-	# Find glyphs already in the target font
+	# Rename glyphs, find glyphs already in the target font
 	for glyph in glyphsWorthOutputting(shsans):
 		if shsans[glyph].glyphname.startswith('Identity') and shsans[glyph].unicode >= 0:
 			newName = ""
@@ -168,6 +168,14 @@ if makingCache:
 							print("Rename glyph '{0}' -> '{1}.{2}'".format(lookup[2], newName, tag))
 							shsans[lookup[2]].color = 0x00ffff
 							shsans[lookup[2]].glyphname = newName + "." + tag
+		elif shsans[glyph].glyphname.startswith('Identity') and shsans[glyph].altuni:
+			for altUniVal, variationSelector, reserved in shsans[glyph].altuni:
+				if variationSelector >= 0:
+					newName = fontforge.nameFromUnicode(altUniVal) + "_" + fontforge.nameFromUnicode(variationSelector)
+					print("Rename glyph '{0}' -> '{1}'".format(glyph, newName))
+					shsans[glyph].color = 0x00ffff
+					shsans[glyph].glyphname = newName
+					break
 
 	# Remove unneeded glyphs
 	rejected_glyphs = []
