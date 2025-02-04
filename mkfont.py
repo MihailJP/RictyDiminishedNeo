@@ -78,6 +78,14 @@ def glyphsWorthOutputting(font):
 		if font[glyph].isWorthOutputting():
 			yield glyph
 
+def selectCidSubfont(font, subfontname):
+	for subfont in range(font.cidsubfontcnt):
+		font.cidsubfont = subfont
+		if re.search(subfontname, font.fontname):
+			break
+	else:
+		raise ValueError("subfont '" + subfontname + "' not found")
+
 rejected_glyphs = []
 for glyph in font:
 	if re.search(r'[^v]+circle($|\.)', glyph):
@@ -131,85 +139,89 @@ font.mergeFonts(ricty)
 font.encoding = "UnicodeFull"
 ricty.close()
 
-for subfont in range(shsans.cidsubfontcnt):
-	shsans.cidsubfont = subfont
-	if re.search('Ideographs', shsans.fontname):
-		break
-else:
-	raise ValueError("subfont 'Ideographs' not found")
+
 
 # Making cache
 if makingCache:
-	# Rename glyphs, find glyphs already in the target font
-	for glyph in glyphsWorthOutputting(shsans):
-		if shsans[glyph].glyphname.startswith('Identity') and shsans[glyph].unicode >= 0:
-			newName = ""
-			if shsans[glyph].unicode in font and font[shsans[glyph].unicode].isWorthOutputting():
-				shsans[glyph].color = 0xffff00
-				newName = font[shsans[glyph].unicode].glyphname
-			else:
-				shsans[glyph].color = 0x00ffff
-				newName = fontforge.nameFromUnicode(shsans[glyph].unicode)
-			print("Rename glyph '{0}' -> '{1}'".format(glyph, newName))
-			shsans[glyph].glyphname = newName
-			for lookup in shsans[newName].getPosSub("*"):
-				if lookup[0].startswith("'jp90'"):
-					if lookup[2].startswith('Identity'):
-						if (newName + ".jp90") in font:
-							shsans[lookup[2]].color = 0xffff00
-						else:
-							shsans[lookup[2]].color = 0x00ffff
-						print("Rename glyph '{0}' -> '{1}.jp90'".format(lookup[2], newName))
-						shsans[lookup[2]].glyphname = newName + "." + tag
-			for tag in ("jp83", "jp78", "nlck"):
-				for lookup in shsans[newName].getPosSub("*"):
-					if lookup[0].startswith("'" + tag + "'"):
-						if lookup[2] in shsans and lookup[2].startswith('Identity') and shsans[lookup[2]].unicode == -1:
-							print("Rename glyph '{0}' -> '{1}.{2}'".format(lookup[2], newName, tag))
-							shsans[lookup[2]].color = 0x00ffff
-							shsans[lookup[2]].glyphname = newName + "." + tag
-		elif shsans[glyph].glyphname.startswith('Identity') and shsans[glyph].altuni:
-			for altUniVal, variationSelector, reserved in shsans[glyph].altuni:
-				if variationSelector >= 0:
-					newName = fontforge.nameFromUnicode(altUniVal) + "_" + fontforge.nameFromUnicode(variationSelector)
-					print("Rename glyph '{0}' -> '{1}'".format(glyph, newName))
+	tags = {"Ideographs": ("jp83", "jp78", "nlck"), "Dingbats": ()}
+	for subfont in tags.keys():
+		selectCidSubfont(shsans, subfont)
+
+		# Rename glyphs, find glyphs already in the target font
+		for glyph in glyphsWorthOutputting(shsans):
+			if shsans[glyph].glyphname.startswith('Identity') and shsans[glyph].unicode >= 0:
+				newName = ""
+				if shsans[glyph].unicode in font and font[shsans[glyph].unicode].isWorthOutputting():
+					shsans[glyph].color = 0xffff00
+					newName = font[shsans[glyph].unicode].glyphname
+				else:
 					shsans[glyph].color = 0x00ffff
-					shsans[glyph].glyphname = newName
-					break
+					newName = fontforge.nameFromUnicode(shsans[glyph].unicode)
+				print("Rename glyph '{0}' -> '{1}'".format(glyph, newName))
+				shsans[glyph].glyphname = newName
+				if subfont == "Ideographs":
+					for lookup in shsans[newName].getPosSub("*"):
+						if lookup[0].startswith("'jp90'"):
+							if lookup[2].startswith('Identity'):
+								if (newName + ".jp90") in font:
+									shsans[lookup[2]].color = 0xffff00
+								else:
+									shsans[lookup[2]].color = 0x00ffff
+								print("Rename glyph '{0}' -> '{1}.jp90'".format(lookup[2], newName))
+								shsans[lookup[2]].glyphname = newName + "." + tag
+				for tag in ("jp83", "jp78", "nlck"):
+					for lookup in shsans[newName].getPosSub("*"):
+						if lookup[0].startswith("'" + tag + "'"):
+							if lookup[2] in shsans and lookup[2].startswith('Identity') and shsans[lookup[2]].unicode == -1:
+								print("Rename glyph '{0}' -> '{1}.{2}'".format(lookup[2], newName, tag))
+								shsans[lookup[2]].color = 0x00ffff
+								shsans[lookup[2]].glyphname = newName + "." + tag
+			elif shsans[glyph].glyphname.startswith('Identity') and shsans[glyph].altuni:
+				for altUniVal, variationSelector, reserved in shsans[glyph].altuni:
+					if variationSelector >= 0:
+						newName = fontforge.nameFromUnicode(altUniVal) + "_" + fontforge.nameFromUnicode(variationSelector)
+						print("Rename glyph '{0}' -> '{1}'".format(glyph, newName))
+						shsans[glyph].color = 0x00ffff
+						shsans[glyph].glyphname = newName
+						break
 
-	# Remove unneeded glyphs
-	rejected_glyphs = []
-	for glyph in shsans:
-		if glyph.startswith('Identity'):
-			rejected_glyphs += [glyph]
-	for glyph in rejected_glyphs:
-		print("Removing glyph '{0}'".format(glyph))
-		shsans.removeGlyph(glyph)
+		# Remove unneeded glyphs
+		rejected_glyphs = []
+		for glyph in shsans:
+			if glyph.startswith('Identity'):
+				rejected_glyphs += [glyph]
+		for glyph in rejected_glyphs:
+			print("Removing glyph '{0}'".format(glyph))
+			shsans.removeGlyph(glyph)
 
-	# Output
-	shsans.save(argv[1])
+		# Output
+		shsans.save(argv[1])
 
 # Making font
 else:
-	# Merge Source Han Sans
-	selectGlyphsWorthOutputting(shsans)
-	shsans.transform(psMat.compose(psMat.scale(0.91), psMat.translate(23, 0)), ('noWidth', 'round'))
-	font.mergeFonts(shsans)
-	font.encoding = "UnicodeFull"
+	for subfont in ("Ideographs", "Dingbats"):
+		selectCidSubfont(shsans, subfont)
 
-	# Add missing entries into 'jp83' and 'jp78' lookup tables
-	for glyph in glyphsWorthOutputting(shsans):
-		if not glyph.startswith('Identity'):
-			if glyph in font:
-				for lookup in shsans[glyph].getPosSub("*"):
-					if lookup[0].startswith(("'jp83'", "'jp78'", "'nlck'")):
-						subtable = font.getLookupSubtables(list(filter(lambda e: e.startswith(shsans.cidfontname + "-" + lookup[0][:6]), font.gsub_lookups))[0])[0]
-						try:
-							if not lookup[2].startswith('Identity'):
-								print(glyph, subtable)
-								font[glyph].addPosSub(subtable, lookup[2])
-						except KeyError:
-							pass
+		# Merge Source Han Sans
+		selectGlyphsWorthOutputting(shsans)
+		shsans.transform(psMat.compose(psMat.scale(0.91), psMat.translate(23, 0)), ('noWidth', 'round'))
+		font.mergeFonts(shsans)
+		font.encoding = "UnicodeFull"
+
+		# Add missing entries into 'jp83' and 'jp78' lookup tables
+		if subfont == "Ideographs":
+			for glyph in glyphsWorthOutputting(shsans):
+				if not glyph.startswith('Identity'):
+					if glyph in font:
+						for lookup in shsans[glyph].getPosSub("*"):
+							if lookup[0].startswith(("'jp83'", "'jp78'", "'nlck'")):
+								subtable = font.getLookupSubtables(list(filter(lambda e: e.startswith(shsans.cidfontname + "-" + lookup[0][:6]), font.gsub_lookups))[0])[0]
+								try:
+									if not lookup[2].startswith('Identity'):
+										print(glyph, subtable)
+										font[glyph].addPosSub(subtable, lookup[2])
+								except KeyError:
+									pass
 
 	# Remove unneeded lookups
 	for lookup in font.gsub_lookups:
