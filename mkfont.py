@@ -66,6 +66,7 @@ font.os2_supysize = ricty.os2_supysize
 
 shsans = fontforge.open(argv[4])
 makingCache = bool(re.search("SourceHan", argv[1]))
+tags = {"Ideographs": ("jp83", "jp78", "nlck"), "Dingbats": ()}
 
 def selectGlyphsWorthOutputting(font):
 	font.selection.none()
@@ -139,11 +140,8 @@ font.mergeFonts(ricty)
 font.encoding = "UnicodeFull"
 ricty.close()
 
-
-
 # Making cache
 if makingCache:
-	tags = {"Ideographs": ("jp83", "jp78", "nlck"), "Dingbats": ()}
 	for subfont in tags.keys():
 		selectCidSubfont(shsans, subfont)
 
@@ -210,18 +208,13 @@ else:
 
 		# Add missing entries into 'jp83' and 'jp78' lookup tables
 		if subfont == "Ideographs":
-			for glyph in glyphsWorthOutputting(shsans):
-				if not glyph.startswith('Identity'):
-					if glyph in font:
-						for lookup in shsans[glyph].getPosSub("*"):
-							if lookup[0].startswith(("'jp83'", "'jp78'", "'nlck'")):
-								subtable = font.getLookupSubtables(list(filter(lambda e: e.startswith(shsans.cidfontname + "-" + lookup[0][:6]), font.gsub_lookups))[0])[0]
-								try:
-									if not lookup[2].startswith('Identity'):
-										print(glyph, subtable)
-										font[glyph].addPosSub(subtable, lookup[2])
-								except KeyError:
-									pass
+			for tag in tags["Ideographs"]:
+				for lookup in font.gsub_lookups:
+					if re.search("-'" + tag + "'", lookup):
+						font.removeLookup(lookup)
+				for lookup in shsans.gsub_lookups:
+					if re.search("'" + tag + "'", lookup):
+						font.importLookups(shsans, lookup)
 
 	# Remove unneeded lookups
 	for lookup in font.gsub_lookups:
