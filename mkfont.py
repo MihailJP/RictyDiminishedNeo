@@ -106,17 +106,19 @@ for glyph in font:
 for glyph in rejected_glyphs:
 	font.removeGlyph(glyph)
 
-rictyPatch = fontforge.open(rictyPatchFile)
-ricty.mergeFonts(rictyPatch)
-lookup = searchLookup(ricty, 'ccmp', 'kana')
-for glyph in glyphsWorthOutputting(ricty):
-	if ricty[glyph].color == 0xff00ff:
-		glyphPattern = re.search(r'^(uni30[0-9A-F]{2})_(uni309[9A])\.ccmp$', glyph, re.A)
-		if glyphPattern:
-			print(glyph)
-			ricty[glyph].addPosSub(ricty.getLookupSubtables(lookup)[0], glyphPattern.group(1, 2))
-rictyPatch.close()
-rictyPatch = None
+if not makingCache:
+	rictyPatch = fontforge.open(rictyPatchFile)
+	ricty.mergeFonts(rictyPatch)
+	lookup = searchLookup(ricty, 'ccmp', 'kana')
+	subtable = ricty.getLookupSubtables(lookup)[0]
+	for glyph in glyphsWorthOutputting(ricty):
+		if ricty[glyph].color == 0xff00ff:
+			glyphPattern = re.search(r'^(uni30[0-9A-F]{2})_(uni309[9A])\.ccmp$', glyph, re.A)
+			if glyphPattern:
+				print(glyph)
+				ricty[glyph].addPosSub(subtable, glyphPattern.group(1, 2))
+	rictyPatch.close()
+	rictyPatch = None
 
 if font.italicangle != 0:
 	selectGlyphsWorthOutputting(ricty)
