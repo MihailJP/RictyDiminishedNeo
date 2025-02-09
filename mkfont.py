@@ -4,7 +4,9 @@ from sys import argv
 from math import radians
 import fontforge, psMat, re
 
-font = fontforge.open(argv[2])
+_, targetFile, ilgcFile, rictyFile, shsansFile, discordFile, *_ = argv + [None] * 6
+
+font = fontforge.open(ilgcFile)
 tmpname = font.fontname.replace("InconsolataLGC", "RictyDiminishedNeo")
 font.fontname = tmpname
 tmpname = font.fullname.replace("Inconsolata LGC", "Ricty Diminished Neo")
@@ -32,7 +34,7 @@ SIL Open Font License Version 1.1 (http://scripts.sil.org/ofl)"""
 font.version = "0.90"
 font.sfntRevision = None
 
-ricty = fontforge.open(argv[3])
+ricty = fontforge.open(rictyFile)
 font.upos = ricty.upos
 font.uwidth = ricty.uwidth
 font.os2_winascent_add = ricty.os2_winascent_add
@@ -64,8 +66,8 @@ font.os2_supxsize = ricty.os2_supxsize
 font.os2_supyoff = ricty.os2_supyoff
 font.os2_supysize = ricty.os2_supysize
 
-shsans = fontforge.open(argv[4])
-makingCache = bool(re.search("SourceHan", argv[1]))
+shsans = fontforge.open(shsansFile)
+makingCache = bool(re.search("SourceHan", targetFile))
 tags = {"Ideographs": ("jp83", "jp78", "nlck"), "Dingbats": ()}
 
 def selectGlyphsWorthOutputting(font):
@@ -113,8 +115,8 @@ if re.search('Discord', ricty.fontname):
 	font.familyname = "Ricty Diminished Neo Discord"
 
 	discord = ricty
-	if len(argv) > 5:
-		discord = fontforge.open(argv[5])
+	if discordFile:
+		discord = fontforge.open(discordFile)
 
 	modified_glyphs = [
 		"asterisk", "plus", "comma", "hyphen", "period",
@@ -193,7 +195,7 @@ if makingCache:
 			shsans.removeGlyph(glyph)
 
 		# Output
-		shsans.save(argv[1])
+		shsans.save(targetFile)
 
 # Making font
 else:
@@ -222,4 +224,4 @@ else:
 			font.removeLookup(lookup)
 
 	# Output
-	font.generate(argv[1])
+	font.generate(targetFile)
