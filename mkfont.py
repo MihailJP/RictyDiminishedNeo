@@ -4,7 +4,7 @@ from sys import argv
 from math import radians
 import fontforge, psMat, re
 
-_, targetFile, ilgcFile, rictyFile, shsansFile, discordFile, *_ = argv + [None] * 6
+_, targetFile, ilgcFile, rictyFile, rictyPatchFile, shsansFile, discordFile, *_ = argv + [None] * 7
 
 font = fontforge.open(ilgcFile)
 tmpname = font.fontname.replace("InconsolataLGC", "RictyDiminishedNeo")
@@ -89,6 +89,14 @@ def selectCidSubfont(font, subfontname):
 	else:
 		raise ValueError("subfont '" + subfontname + "' not found")
 
+def searchLookup(font, otTag, scriptCode):
+	for lookup in font.gsub_lookups:
+		for tag, scripts in font.getLookupInfo(lookup)[2]:
+			for scr, _ in scripts:
+				if tag == otTag and scr == scriptCode:
+					return lookup
+	return None
+
 rejected_glyphs = []
 for glyph in font:
 	if re.search(r'[^v]+circle($|\.)', glyph):
@@ -97,6 +105,18 @@ for glyph in font:
 		rejected_glyphs += [glyph]
 for glyph in rejected_glyphs:
 	font.removeGlyph(glyph)
+
+rictyPatch = fontforge.open(rictyPatchFile)
+ricty.mergeFonts(rictyPatch)
+lookup = searchLookup(ricty, 'ccmp', 'kana')
+for glyph in glyphsWorthOutputting(ricty):
+	if ricty[glyph].color == 0xff00ff:
+		glyphPattern = re.search(r'^(uni30[0-9A-F]{2})_(uni309[9A])\.ccmp$', glyph, re.A)
+		if glyphPattern:
+			print(glyph)
+			ricty[glyph].addPosSub(ricty.getLookupSubtables(lookup)[0], glyphPattern.group(1, 2))
+rictyPatch.close()
+rictyPatch = None
 
 if font.italicangle != 0:
 	selectGlyphsWorthOutputting(ricty)
@@ -141,6 +161,7 @@ if re.search('Discord', ricty.fontname):
 font.mergeFonts(ricty)
 font.encoding = "UnicodeFull"
 ricty.close()
+ricty = None
 
 # Making cache
 if makingCache:

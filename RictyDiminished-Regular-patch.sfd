@@ -1,0 +1,530 @@
+SplineFontDB: 3.2
+FontName: RictyDiminished-Regular
+FullName: Ricty Diminished Regular
+FamilyName: Ricty Diminished
+Weight: Book
+Copyright: Copyright (c) 2011-2017 Yasunori Yusa\nCopyright (c) 2006 The Inconsolata Project Authors\nCopyright (c) 2020 itouhiro\nCopyright (C) 2002-2019 M+ FONTS PROJECT\nSIL Open Font License Version 1.1 (http://scripts.sil.org/ofl)
+Version: 4.1.1.20200415
+ItalicAngle: 0
+UnderlinePosition: -150
+UnderlineWidth: 50
+Ascent: 860
+Descent: 140
+InvalidEm: 0
+sfntRevision: 0x00041999
+LayerCount: 2
+Layer: 0 1 "+gMyXYgAA" 1
+Layer: 1 1 "+Uk2XYgAA" 0
+XUID: [1021 1008 -2030067150 12016504]
+StyleMap: 0x0040
+FSType: 0
+OS2Version: 1
+OS2_WeightWidthSlopeOnly: 0
+OS2_UseTypoMetrics: 0
+CreationTime: 1586902698
+ModificationTime: 1739099612
+PfmFamily: 17
+TTFWeight: 400
+TTFWidth: 5
+LineGap: 0
+VLineGap: 0
+Panose: 2 11 5 9 2 2 3 2 2 7
+OS2TypoAscent: 860
+OS2TypoAOffset: 0
+OS2TypoDescent: -140
+OS2TypoDOffset: 0
+OS2TypoLinegap: 0
+OS2WinAscent: 835
+OS2WinAOffset: 0
+OS2WinDescent: 215
+OS2WinDOffset: 0
+HheadAscent: 835
+HheadAOffset: 0
+HheadDescent: -215
+HheadDOffset: 0
+OS2SubXSize: 650
+OS2SubYSize: 699
+OS2SubXOff: 0
+OS2SubYOff: 140
+OS2SupXSize: 650
+OS2SupYSize: 699
+OS2SupXOff: 0
+OS2SupYOff: 479
+OS2StrikeYSize: 49
+OS2StrikeYPos: 258
+OS2FamilyClass: 2057
+OS2Vendor: 'PfEd'
+OS2CodePages: 4012019f.dfd70000
+OS2UnicodeRanges: e00002bf.6ac7fdfb.04000012.00000000
+MarkAttachClasses: 1
+DEI: 91125
+MacFeat: 0 0 0
+MacName: 0 0 24 "All Typographic Features"
+MacName: 0 1 24 "Fonctions typographiques"
+MacName: 0 2 32 "Alle typografischen Mglichkeiten"
+MacName: 0 3 21 "Funzioni Tipografiche"
+MacName: 0 4 28 "Alle typografische kenmerken"
+MacSetting: 0
+MacName: 0 0 17 "All Type Features"
+MacName: 0 1 31 "Toutes fonctions typographiques"
+MacName: 0 2 23 "Alle Auszeichnungsarten"
+MacName: 0 3 17 "Tutte le Funzioni"
+MacName: 0 4 18 "Alle typekenmerken"
+MacFeat: 10 1 0
+MacName: 0 0 17 "Vertical Position"
+MacName: 0 1 18 "Position Verticale"
+MacName: 0 4 17 "Verticale positie"
+MacSetting: 0
+MacName: 0 0 24 "Normal Vertical Position"
+MacName: 0 1 26 "Position Verticale Normale"
+MacName: 0 2 6 "Normal"
+MacName: 0 3 17 "Posizione Normale"
+MacName: 0 4 25 "Normale verticale positie"
+MacSetting: 1
+MacName: 0 0 9 "Superiors"
+MacName: 0 1 18 "Position Suprieure"
+MacName: 0 2 12 "Hochgestellt"
+MacName: 0 3 5 "Apice"
+MacName: 0 4 11 "Superieuren"
+MacSetting: 2
+MacName: 0 0 9 "Inferiors"
+MacName: 0 1 18 "Position Infrieure"
+MacName: 0 2 12 "Tiefgestellt"
+MacName: 0 3 6 "Pedice"
+MacName: 0 4 11 "Inferieuren"
+MacFeat: 11 1 0
+MacName: 0 0 9 "Fractions"
+MacName: 0 1 9 "Fractions"
+MacName: 0 4 7 "Breuken"
+MacSetting: 0
+MacName: 0 0 12 "No Fractions"
+MacName: 0 1 16 "Pas de Fractions"
+MacName: 0 2 11 "Kein Bruche"
+MacName: 0 3 16 "Nessuna Frazione"
+MacName: 0 4 12 "Geen breuken"
+MacSetting: 2
+MacName: 0 0 18 "Diagonal Fractions"
+MacName: 0 1 22 "Fractions en Diagonale"
+MacName: 0 2 16 "Diagonaler Bruch"
+MacName: 0 3 18 "Frazioni Diagonali"
+MacName: 0 4 17 "Diagonale breuken"
+MacFeat: 20 1 0
+MacName: 0 0 15 "Character Shape"
+MacName: 0 1 19 "Forme des Caractres"
+MacName: 0 4 9 "Tekenvorm"
+MacSetting: 0
+MacName: 0 0 11 "Traditional"
+MacName: 0 1 13 "Traditionelle"
+MacName: 0 4 12 "Traditioneel"
+MacSetting: 4
+MacName: 0 0 8 "jis 1990"
+MacName: 0 1 8 "jis 1990"
+MacName: 0 4 8 "jis 1990"
+EndMacFeatures
+ShortTable: cvt  2
+  33
+  633
+EndShort
+ShortTable: maxp 16
+  1
+  0
+  8284
+  415
+  22
+  0
+  0
+  2
+  0
+  1
+  1
+  0
+  64
+  0
+  0
+  0
+EndShort
+LangName: 1033 "" "" "" "FontForge 2.0 : Ricty Diminished Regular : 15-04-2020"
+GaspTable: 1 65535 2 0
+Encoding: Original
+UnicodeInterp: none
+NameList: AGL For New Fonts
+DisplaySize: -36
+AntiAlias: 1
+FitToEm: 0
+WinInfo: 0 32 8
+BeginPrivate: 0
+EndPrivate
+AnchorClass2: "Anchor-0"""  "Anchor-1"""  "Anchor-2"""  "Anchor-3"""  "Anchor-4"""  "Anchor-5"""  "Anchor-6""" 
+BeginChars: 8 8
+
+StartChar: uni3042_uni3099.ccmp
+Encoding: 0 -1 0
+Width: 1000
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+565 3 m 1,0,1
+ 705 29 705 29 756 118 c 0,2,3
+ 779 158 779 158 778 207 c 0,4,5
+ 776 326 776 326 664 369 c 1,6,7
+ 596 173 596 173 462 67 c 0,8,9
+ 362 -12 362 -12 262 -12 c 256,10,11
+ 160 -12 160 -12 127 69 c 0,12,13
+ 111 107 111 107 111 148 c 0,14,15
+ 110 276 110 276 219 359 c 0,16,17
+ 274 401 274 401 339 423 c 1,18,-1
+ 339 558 l 1,19,-1
+ 144 558 l 1,20,-1
+ 144 616 l 1,21,-1
+ 339 616 l 1,22,-1
+ 339 731 l 1,23,-1
+ 405 731 l 1,24,-1
+ 405 616 l 1,25,-1
+ 704 616 l 1,26,-1
+ 704 558 l 1,27,-1
+ 405 558 l 1,28,-1
+ 405 440 l 1,29,30
+ 467 452 467 452 526 452 c 0,31,32
+ 718 451 718 451 797 350 c 0,33,34
+ 845 289 845 289 845 207 c 0,35,36
+ 846 76 846 76 734 2 c 0,37,38
+ 670 -40 670 -40 582 -57 c 1,39,-1
+ 565 3 l 1,0,1
+603 386 m 1,40,41
+ 564 391 564 391 526 391 c 0,42,43
+ 458 391 458 391 405 378 c 1,44,-1
+ 405 101 l 1,45,46
+ 519 185 519 185 584 339 c 0,47,48
+ 597 367 597 367 603 386 c 1,40,41
+339 357 m 1,49,50
+ 227 310 227 310 191 223 c 0,51,52
+ 177 186 177 186 178 155 c 0,53,54
+ 179 66 179 66 245 51 c 0,55,56
+ 257 48 257 48 269 48 c 0,57,58
+ 305 48 305 48 339 63 c 1,59,-1
+ 339 357 l 1,49,50
+662 724 m 1,60,-1
+ 712 751 l 1,61,62
+ 753 684 753 684 788 615 c 1,63,-1
+ 738 590 l 1,64,65
+ 709 648 709 648 662 724 c 1,60,-1
+785 740 m 1,66,-1
+ 836 766 l 1,67,68
+ 880 694 880 694 915 628 c 1,69,-1
+ 863 602 l 1,70,71
+ 822 678 822 678 785 740 c 1,66,-1
+EndSplineSet
+Colour: ff00ff
+EndChar
+
+StartChar: uni3044_uni3099.ccmp
+Encoding: 1 -1 1
+Width: 1000
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+760 560 m 1,0,1
+ 834 384 834 384 848 152 c 0,2,3
+ 851 107 851 107 851 64 c 1,4,-1
+ 781 64 l 1,5,6
+ 781 325 781 325 695 540 c 9,7,8
+ 695 540 695 540 760 560 c 1,0,1
+238 621 m 1,9,10
+ 200 476 200 476 199 318 c 0,11,12
+ 200 179 200 179 258 90 c 0,13,14
+ 293 41 293 41 325 39 c 0,15,16
+ 361 41 361 41 410 111 c 0,17,18
+ 452 174 452 174 487 265 c 1,19,-1
+ 551 240 l 1,20,21
+ 491 73 491 73 402 4 c 0,22,23
+ 359 -30 359 -30 321 -30 c 0,24,25
+ 260 -29 260 -29 205 48 c 0,26,27
+ 134 152 134 152 129 306 c 1,28,-1
+ 129 318 l 2,29,30
+ 129 489 129 489 170 630 c 1,31,-1
+ 238 621 l 1,9,10
+662 724 m 1,32,-1
+ 712 751 l 1,33,34
+ 753 684 753 684 788 615 c 1,35,-1
+ 738 590 l 1,36,37
+ 709 648 709 648 662 724 c 1,32,-1
+785 740 m 1,38,-1
+ 836 766 l 1,39,40
+ 880 694 880 694 915 628 c 1,41,-1
+ 863 602 l 1,42,43
+ 822 678 822 678 785 740 c 1,38,-1
+EndSplineSet
+Colour: ff00ff
+EndChar
+
+StartChar: uni3048_uni3099.ccmp
+Encoding: 2 -1 2
+Width: 1000
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+175 503 m 1,0,-1
+ 740 503 l 1,1,-1
+ 740 436 l 1,2,-1
+ 514 250 l 1,3,-1
+ 515 249 l 1,4,5
+ 527 251 527 251 530 251 c 0,6,7
+ 566 251 566 251 587 215 c 0,8,9
+ 603 185 603 185 617 129 c 0,10,11
+ 634 63 634 63 659 46 c 0,12,13
+ 679 35 679 35 721 35 c 0,14,15
+ 782 35 782 35 837 51 c 1,16,-1
+ 849 -9 l 1,17,18
+ 782 -27 782 -27 715 -27 c 0,19,20
+ 629 -26 629 -26 594 11 c 0,21,22
+ 570 39 570 39 557 93 c 0,23,24
+ 534 182 534 182 503 196 c 0,25,26
+ 495 200 495 200 484 199 c 0,27,28
+ 459 198 459 198 435 183 c 0,29,30
+ 391 155 391 155 156 -35 c 1,31,-1
+ 116 16 l 1,32,-1
+ 643 441 l 1,33,-1
+ 642 443 l 1,34,-1
+ 175 443 l 1,35,-1
+ 175 503 l 1,0,-1
+271 643 m 1,36,-1
+ 279 703 l 1,37,38
+ 470 673 470 673 647 671 c 1,39,40
+ 647 671 647 671 647 608 c 1,41,42
+ 480 611 480 611 271 643 c 1,36,-1
+662 724 m 1,43,-1
+ 712 751 l 1,44,45
+ 753 684 753 684 788 615 c 1,46,-1
+ 738 590 l 1,47,48
+ 709 648 709 648 662 724 c 1,43,-1
+785 740 m 1,49,-1
+ 836 766 l 1,50,51
+ 880 694 880 694 915 628 c 1,52,-1
+ 863 602 l 1,53,54
+ 822 678 822 678 785 740 c 1,49,-1
+EndSplineSet
+Colour: ff00ff
+EndChar
+
+StartChar: uni304A_uni3099.ccmp
+Encoding: 3 -1 3
+Width: 1000
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+135 607 m 1,0,-1
+ 360 607 l 1,1,-1
+ 360 731 l 1,2,-1
+ 426 731 l 1,3,-1
+ 426 607 l 1,4,-1
+ 577 607 l 1,5,-1
+ 577 549 l 1,6,-1
+ 426 549 l 1,7,-1
+ 426 393 l 1,8,9
+ 475 398 475 398 508 398 c 0,10,11
+ 666 398 666 398 751 317 c 0,12,13
+ 808 262 808 262 808 194 c 0,14,15
+ 806 10 806 10 619 -32 c 0,16,17
+ 597 -37 597 -37 552 -43 c 1,18,-1
+ 538 18 l 1,19,20
+ 740 42 740 42 740 191 c 0,21,22
+ 740 253 740 253 674 293 c 0,23,24
+ 606 334 606 334 508 334 c 0,25,26
+ 472 334 472 334 426 329 c 1,27,-1
+ 426 97 l 2,28,29
+ 426 8 426 8 373 -15 c 0,30,31
+ 345 -27 345 -27 302 -27 c 0,32,33
+ 214 -26 214 -26 155 34 c 0,34,35
+ 102 88 102 88 102 152 c 0,36,37
+ 101 250 101 250 196 316 c 0,38,39
+ 262 362 262 362 360 383 c 1,40,-1
+ 360 549 l 1,41,-1
+ 135 549 l 1,42,-1
+ 135 607 l 1,0,-1
+613 603 m 1,43,-1
+ 661 642 l 1,44,45
+ 744 552 744 552 809 450 c 1,46,-1
+ 759 418 l 1,47,48
+ 699 511 699 511 613 603 c 1,43,-1
+360 318 m 1,49,50
+ 228 287 228 287 184 210 c 0,51,52
+ 169 181 169 181 169 152 c 0,53,54
+ 170 100 170 100 219 61 c 0,55,56
+ 258 32 258 32 296 32 c 0,57,58
+ 345 33 345 33 356 66 c 0,59,60
+ 360 79 360 79 360 98 c 2,61,-1
+ 360 318 l 1,49,50
+662 736 m 1,62,-1
+ 712 763 l 1,63,64
+ 753 696 753 696 788 627 c 1,65,-1
+ 738 602 l 1,66,67
+ 709 660 709 660 662 736 c 1,62,-1
+785 752 m 1,68,-1
+ 836 778 l 1,69,70
+ 880 706 880 706 915 640 c 1,71,-1
+ 863 614 l 1,72,73
+ 822 690 822 690 785 752 c 1,68,-1
+EndSplineSet
+Colour: ff00ff
+EndChar
+
+StartChar: uni30A2_uni3099.ccmp
+Encoding: 4 -1 4
+Width: 1000
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+823 740 m 1,0,-1
+ 874 766 l 1,1,2
+ 918 694 918 694 953 628 c 1,3,-1
+ 901 602 l 1,4,5
+ 860 678 860 678 823 740 c 1,0,-1
+700 724 m 1,6,-1
+ 750 751 l 1,7,8
+ 791 684 791 684 826 615 c 1,9,-1
+ 814 609 l 1,10,-1
+ 814 587 l 1,11,12
+ 770 402 770 402 673 331 c 0,13,14
+ 642 308 642 308 600 288 c 1,15,-1
+ 564 344 l 1,16,17
+ 690 401 690 401 739 587 c 1,18,-1
+ 134 587 l 1,19,-1
+ 134 649 l 1,20,-1
+ 744 649 l 1,21,22
+ 725 684 725 684 700 724 c 1,6,-1
+402 500 m 1,23,-1
+ 472 500 l 1,24,25
+ 472 236 472 236 395 114 c 0,26,27
+ 335 20 335 20 219 -30 c 1,28,-1
+ 186 28 l 1,29,30
+ 303 78 303 78 353 182 c 0,31,32
+ 402 288 402 288 402 500 c 1,23,-1
+EndSplineSet
+Colour: ff00ff
+EndChar
+
+StartChar: uni30A4_uni3099.ccmp
+Encoding: 5 -1 5
+Width: 1000
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+111 341 m 1,0,1
+ 359 376 359 376 583 510 c 0,2,3
+ 647 549 647 549 702 593 c 0,4,5
+ 702 593 702 593 746 543 c 0,6,7
+ 666 478 666 478 567 425 c 1,8,-1
+ 567 -41 l 1,9,-1
+ 493 -41 l 1,10,-1
+ 493 388 l 1,11,12
+ 313 303 313 303 122 276 c 1,13,-1
+ 111 341 l 1,0,1
+662 724 m 1,14,-1
+ 712 751 l 1,15,16
+ 753 684 753 684 788 615 c 1,17,-1
+ 738 590 l 1,18,19
+ 709 648 709 648 662 724 c 1,14,-1
+785 740 m 1,20,-1
+ 836 766 l 1,21,22
+ 880 694 880 694 915 628 c 1,23,-1
+ 863 602 l 1,24,25
+ 822 678 822 678 785 740 c 1,20,-1
+EndSplineSet
+Colour: ff00ff
+EndChar
+
+StartChar: uni30A8_uni3099.ccmp
+Encoding: 6 -1 6
+Width: 1000
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+153 634 m 1,0,-1
+ 694 634 l 1,1,-1
+ 694 571 l 1,2,-1
+ 514 571 l 1,3,-1
+ 514 85 l 1,4,-1
+ 830 85 l 1,5,-1
+ 830 21 l 1,6,-1
+ 126 21 l 1,7,-1
+ 126 85 l 1,8,-1
+ 442 85 l 1,9,-1
+ 442 571 l 1,10,-1
+ 153 571 l 1,11,-1
+ 153 634 l 1,0,-1
+662 724 m 1,12,-1
+ 712 751 l 1,13,14
+ 753 684 753 684 788 615 c 1,15,-1
+ 738 590 l 1,16,17
+ 709 648 709 648 662 724 c 1,12,-1
+785 740 m 1,18,-1
+ 836 766 l 1,19,20
+ 880 694 880 694 915 628 c 1,21,-1
+ 863 602 l 1,22,23
+ 822 678 822 678 785 740 c 1,18,-1
+EndSplineSet
+Colour: ff00ff
+EndChar
+
+StartChar: uni30AA_uni3099.ccmp
+Encoding: 7 -1 7
+Width: 1000
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+117 578 m 1,0,-1
+ 583 578 l 1,1,-1
+ 583 723 l 1,2,-1
+ 651 723 l 1,3,-1
+ 651 578 l 1,4,-1
+ 857 578 l 1,5,-1
+ 857 516 l 1,6,-1
+ 651 516 l 1,7,-1
+ 651 102 l 2,8,9
+ 651 27 651 27 630 6 c 0,10,11
+ 606 -14 606 -14 535 -14 c 0,12,13
+ 466 -14 466 -14 382 -5 c 1,14,-1
+ 386 59 l 1,15,16
+ 462 50 462 50 530 50 c 0,17,18
+ 569 51 569 51 577 64 c 0,19,20
+ 582 74 582 74 583 103 c 2,21,-1
+ 583 440 l 1,22,23
+ 397 243 397 243 176 111 c 0,24,25
+ 172 108 172 108 163 104 c 0,26,27
+ 154 98 154 98 150 96 c 1,28,-1
+ 119 152 l 1,29,30
+ 338 276 338 276 524 470 c 0,31,32
+ 552 500 552 500 566 516 c 1,33,-1
+ 117 516 l 1,34,-1
+ 117 578 l 1,0,-1
+662 724 m 5,35,-1
+ 712 751 l 5,36,37
+ 753 684 753 684 788 615 c 5,38,-1
+ 738 590 l 5,39,40
+ 709 648 709 648 662 724 c 5,35,-1
+785 740 m 5,41,-1
+ 836 766 l 5,42,43
+ 880 694 880 694 915 628 c 5,44,-1
+ 863 602 l 5,45,46
+ 822 678 822 678 785 740 c 5,41,-1
+EndSplineSet
+Colour: ff00ff
+EndChar
+EndChars
+EndSplineFont
