@@ -208,20 +208,20 @@ else:
 		font.mergeFonts(shsans)
 		font.encoding = "UnicodeFull"
 
-		# Add missing entries into 'jp83' and 'jp78' lookup tables
-		if subfont == "Ideographs":
-			for tag in tags["Ideographs"]:
-				for lookup in font.gsub_lookups:
-					if re.search("-'" + tag + "'", lookup):
-						font.removeLookup(lookup)
-				for lookup in shsans.gsub_lookups:
-					if re.search("'" + tag + "'", lookup):
-						font.importLookups(shsans, lookup)
-
 	# Remove unneeded lookups
 	for lookup in font.gsub_lookups:
 		if re.search("'aalt'", lookup) or lookup.startswith(shsans.cidfontname + "-'locl'"):
 			font.removeLookup(lookup)
+
+	# Add missing entries into 'jp83' and 'jp78' lookup tables
+	shsans.cidFlatten()
+	for tag in tags["Ideographs"]:
+		for lookup in font.gsub_lookups:
+			if re.search("-'" + tag + "'", lookup):
+				font.removeLookup(lookup)
+		for lookup in shsans.gsub_lookups:
+			if re.search("'" + tag + "'", lookup):
+				font.importLookups(shsans, lookup)
 
 	# Output
 	font.generate(targetFile)
