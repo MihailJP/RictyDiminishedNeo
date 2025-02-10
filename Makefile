@@ -14,11 +14,11 @@ all: ${TARGETS}
 .INTERMEDIATE: ${TARGETS:.ttf=.ttx} ${TARGETS:.ttf=.raw.ttf} ${TARGETS:.ttf=.raw.ttx}
 .PRECIOUS: ${CACHES}
 
-SourceHanSans-Regular.sfd: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminished-Regular.ttf RictyDiminished-Regular-patch.sfd SourceHanSans/OTF/Japanese/SourceHanSans-Regular.otf
-	./mkfont.py $@ $^
+SourceHanSans-Regular.sfd: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminished-Regular.ttf SourceHanSans/OTF/Japanese/SourceHanSans-Regular.otf
+	./mkfont.py $@ $(wordlist 1,2,$^) "" $(word 3,$^)
 
-SourceHanSans-Bold.sfd: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminished-Bold.ttf RictyDiminished-Bold-patch.sfd SourceHanSans/OTF/Japanese/SourceHanSans-Bold.otf
-	./mkfont.py $@ $^
+SourceHanSans-Bold.sfd: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminished-Bold.ttf SourceHanSans/OTF/Japanese/SourceHanSans-Bold.otf
+	./mkfont.py $@ $(wordlist 1,2,$^) "" $(word 3,$^)
 
 
 RictyDiminishedNeo.raw.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminished-Regular.ttf RictyDiminished-Regular-patch.sfd SourceHanSans-Regular.sfd
