@@ -22,7 +22,7 @@ OS2Version: 1
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 0
 CreationTime: 1586902698
-ModificationTime: 1739200219
+ModificationTime: 1739587249
 PfmFamily: 17
 TTFWeight: 400
 TTFWidth: 5
@@ -153,6 +153,13 @@ AntiAlias: 1
 FitToEm: 0
 BeginPrivate: 0
 EndPrivate
+Grid
+23 -127 m 25
+ 23 783 l 25
+ 933 783 l 25
+ 933 -127 l 25
+ 23 -127 l 25
+EndSplineSet
 AnchorClass2: "Anchor-0"""  "Anchor-1"""  "Anchor-2"""  "Anchor-3"""  "Anchor-4"""  "Anchor-5"""  "Anchor-6""" 
 BeginChars: 10 10
 
