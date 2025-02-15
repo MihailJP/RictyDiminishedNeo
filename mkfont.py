@@ -31,7 +31,7 @@ Copyright (C) 2002-2019 M+ FONTS PROJECT
 Copyright (c) 2012-2024 MihailJP
 Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'. Source is a trademark of Adobe in the United States and/or other countries.
 SIL Open Font License Version 1.1 (http://scripts.sil.org/ofl)"""
-font.version = "0.92"
+font.version = "0.93"
 font.sfntRevision = None
 
 ricty = fontforge.open(rictyFile)
