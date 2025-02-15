@@ -68,7 +68,13 @@ font.os2_supysize = ricty.os2_supysize
 
 shsans = fontforge.open(shsansFile)
 makingCache = bool(re.search("SourceHan", targetFile))
-tags = {"Ideographs": ("jp83", "jp78", "nlck"), "Dingbats": ()}
+tags = {
+	"Ideographs": ("jp83", "jp78", "nlck"),
+	"Dingbats": (),
+	"Generic": (),
+	"AlphabeticDigits": (),
+	"HDingbats": (),
+}
 
 def selectGlyphsWorthOutputting(font):
 	font.selection.none()
@@ -222,7 +228,7 @@ if makingCache:
 
 # Making font
 else:
-	for subfont in ("Ideographs", "Dingbats"):
+	for subfont in tags.keys():
 		selectCidSubfont(shsans, subfont)
 
 		# Merge Source Han Sans
