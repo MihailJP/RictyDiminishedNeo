@@ -4,7 +4,6 @@ RictyDiminishedNeoDiscord.ttf RictyDiminishedNeoDiscord-Bold.ttf \
 RictyDiminishedNeoDiscord-Italic.ttf RictyDiminishedNeoDiscord-BoldItalic.ttf
 DOCUMENTS=README.md ChangeLog LICENSE
 PACKAGES=RictyDiminishedNeo.tar.xz
-CACHES=SourceHanSans-Regular.sfd SourceHanSans-Bold.sfd
 
 .SUFFIXES: .tar.xz
 
@@ -12,37 +11,29 @@ CACHES=SourceHanSans-Regular.sfd SourceHanSans-Bold.sfd
 all: ${TARGETS}
 
 .INTERMEDIATE: ${TARGETS:.ttf=.ttx} ${TARGETS:.ttf=.raw.ttf} ${TARGETS:.ttf=.raw.ttx}
-.PRECIOUS: ${CACHES}
 
-SourceHanSans-Regular.sfd: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminished-Regular.ttf SourceHanSans/OTF/Japanese/SourceHanSans-Regular.otf
-	./mkfont.py $@ $(wordlist 1,2,$^) "" $(word 3,$^)
-
-SourceHanSans-Bold.sfd: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminished-Bold.ttf SourceHanSans/OTF/Japanese/SourceHanSans-Bold.otf
-	./mkfont.py $@ $(wordlist 1,2,$^) "" $(word 3,$^)
-
-
-RictyDiminishedNeo.raw.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminished-Regular.ttf RictyDiminished-Regular-patch.sfd SourceHanSans-Regular.sfd
+RictyDiminishedNeo.raw.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminished-Regular.ttf RictyDiminished-Regular-patch.sfd
 	./mkfont.py $@ $^
 
-RictyDiminishedNeo-Bold.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminished-Bold.ttf RictyDiminished-Bold-patch.sfd SourceHanSans-Bold.sfd
+RictyDiminishedNeo-Bold.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminished-Bold.ttf RictyDiminished-Bold-patch.sfd
 	./mkfont.py $@ $^
 
-RictyDiminishedNeo-Italic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd RictyDiminished/RictyDiminished-Regular.ttf RictyDiminished-Regular-patch.sfd SourceHanSans-Regular.sfd
+RictyDiminishedNeo-Italic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd RictyDiminished/RictyDiminished-Regular.ttf RictyDiminished-Regular-patch.sfd
 	./mkfont.py $@ $^
 
-RictyDiminishedNeo-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd RictyDiminished/RictyDiminished-Bold.ttf RictyDiminished-Bold-patch.sfd SourceHanSans-Bold.sfd
+RictyDiminishedNeo-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd RictyDiminished/RictyDiminished-Bold.ttf RictyDiminished-Bold-patch.sfd
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord.raw.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf RictyDiminished-Regular-patch.sfd SourceHanSans-Regular.sfd
+RictyDiminishedNeoDiscord.raw.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf RictyDiminished-Regular-patch.sfd
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord-Bold.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished-Bold-patch.sfd SourceHanSans-Bold.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf
+RictyDiminishedNeoDiscord-Bold.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished-Bold-patch.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord-Italic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf RictyDiminished-Regular-patch.sfd SourceHanSans-Regular.sfd
+RictyDiminishedNeoDiscord-Italic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf RictyDiminished-Regular-patch.sfd
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished-Bold-patch.sfd SourceHanSans-Bold.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf
+RictyDiminishedNeoDiscord-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished-Bold-patch.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf
 	./mkfont.py $@ $^
 
 %.raw.ttx: %.raw.ttf
@@ -64,5 +55,5 @@ RictyDiminishedNeo.tar.xz: ${TARGETS} ${DOCUMENTS}
 .PHONY: clean
 clean:
 	-rm -f ${TARGETS} ${PACKAGES}
-	-rm -f ${TARGETS:.ttf=.ttx} ${TARGETS:.ttf=.raw.ttf} ${TARGETS:.ttf=.raw.ttx} ${CACHES}
+	-rm -f ${TARGETS:.ttf=.ttx} ${TARGETS:.ttf=.raw.ttf} ${TARGETS:.ttf=.raw.ttx}
 	-rm -rf ${PACKAGES:.tar.xz=}
