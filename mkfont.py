@@ -4,7 +4,9 @@ from sys import argv
 from math import radians
 import fontforge, psMat, re
 
-font = fontforge.open(argv[2])
+_, targetFile, ilgcFile, rictyFile, rictyPatchFile, discordFile, *_ = argv + [None] * 6
+
+font = fontforge.open(ilgcFile)
 tmpname = font.fontname.replace("InconsolataLGC", "RictyDiminishedNeo")
 font.fontname = tmpname
 tmpname = font.fullname.replace("Inconsolata LGC", "Ricty Diminished Neo")
@@ -31,7 +33,7 @@ SIL Open Font License Version 1.1 (http://scripts.sil.org/ofl)"""
 font.version = "0.7"
 font.sfntRevision = None
 
-ricty = fontforge.open(argv[3])
+ricty = fontforge.open(rictyFile)
 font.upos = ricty.upos
 font.uwidth = ricty.uwidth
 font.os2_winascent_add = ricty.os2_winascent_add
@@ -63,6 +65,33 @@ font.os2_supxsize = ricty.os2_supxsize
 font.os2_supyoff = ricty.os2_supyoff
 font.os2_supysize = ricty.os2_supysize
 
+def selectGlyphsWorthOutputting(font):
+	font.selection.none()
+	for glyph in font:
+		if font[glyph].isWorthOutputting():
+			font.selection.select(("more",), glyph)
+
+def glyphsWorthOutputting(font):
+	for glyph in font:
+		if font[glyph].isWorthOutputting():
+			yield glyph
+
+def selectCidSubfont(font, subfontname):
+	for subfont in range(font.cidsubfontcnt):
+		font.cidsubfont = subfont
+		if re.search(subfontname, font.fontname):
+			break
+	else:
+		raise ValueError("subfont '" + subfontname + "' not found")
+
+def searchLookup(font, otTag, scriptCode):
+	for lookup in font.gsub_lookups:
+		for tag, scripts in font.getLookupInfo(lookup)[2]:
+			for scr, _ in scripts:
+				if tag == otTag and scr == scriptCode:
+					return lookup
+	return None
+
 rejected_glyphs = []
 for glyph in font:
 	if re.search(r'[^v]+circle($|\.)', glyph):
@@ -72,11 +101,21 @@ for glyph in font:
 for glyph in rejected_glyphs:
 	font.removeGlyph(glyph)
 
+rictyPatch = fontforge.open(rictyPatchFile)
+ricty.mergeFonts(rictyPatch)
+lookup = searchLookup(ricty, 'ccmp', 'kana')
+subtable = ricty.getLookupSubtables(lookup)[0]
+for glyph in glyphsWorthOutputting(ricty):
+	if ricty[glyph].color == 0xff00ff:
+		glyphPattern = re.search(r'^(uni30[0-9A-F]{2})_(uni309[9A])\.ccmp$', glyph, re.A)
+		if glyphPattern:
+			print(glyph)
+			ricty[glyph].addPosSub(subtable, glyphPattern.group(1, 2))
+rictyPatch.close()
+rictyPatch = None
+
 if font.italicangle != 0:
-	ricty.selection.none()
-	for glyph in ricty:
-		if ricty[glyph].isWorthOutputting():
-			ricty.selection.select(("more",), glyph)
+	selectGlyphsWorthOutputting(ricty)
 	ricty.transform(psMat.skew(radians(-font.italicangle)), ("round",))
 
 if re.search('Discord', ricty.fontname):
@@ -87,8 +126,8 @@ if re.search('Discord', ricty.fontname):
 	font.familyname = "Ricty Diminished Neo Discord"
 
 	discord = ricty
-	if len(argv) > 4:
-		discord = fontforge.open(argv[4])
+	if discordFile:
+		discord = fontforge.open(discordFile)
 
 	modified_glyphs = [
 		"asterisk", "plus", "comma", "hyphen", "period",
@@ -112,5 +151,8 @@ if re.search('Discord', ricty.fontname):
 
 font.mergeFonts(ricty)
 font.encoding = "UnicodeFull"
+ricty.close()
+ricty = None
 
-font.generate(argv[1])
+# Output
+font.generate(targetFile)

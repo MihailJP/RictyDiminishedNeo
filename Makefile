@@ -12,28 +12,28 @@ all: ${TARGETS}
 
 .INTERMEDIATE: ${TARGETS:.ttf=.ttx} ${TARGETS:.ttf=.raw.ttf} ${TARGETS:.ttf=.raw.ttx}
 
-RictyDiminishedNeo.raw.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminished-Regular.ttf
+RictyDiminishedNeo.raw.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminished-Regular.ttf RictyDiminished-Regular-patch.sfd
 	./mkfont.py $@ $^
 
-RictyDiminishedNeo-Bold.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminished-Bold.ttf
+RictyDiminishedNeo-Bold.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminished-Bold.ttf RictyDiminished-Bold-patch.sfd
 	./mkfont.py $@ $^
 
-RictyDiminishedNeo-Italic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd RictyDiminished/RictyDiminished-Regular.ttf
+RictyDiminishedNeo-Italic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd RictyDiminished/RictyDiminished-Regular.ttf RictyDiminished-Regular-patch.sfd
 	./mkfont.py $@ $^
 
-RictyDiminishedNeo-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd RictyDiminished/RictyDiminished-Bold.ttf
+RictyDiminishedNeo-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd RictyDiminished/RictyDiminished-Bold.ttf RictyDiminished-Bold-patch.sfd
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord.raw.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf
+RictyDiminishedNeoDiscord.raw.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf RictyDiminished-Regular-patch.sfd
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord-Bold.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished/RictyDiminishedDiscord-Regular.ttf
+RictyDiminishedNeoDiscord-Bold.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished-Bold-patch.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord-Italic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf
+RictyDiminishedNeoDiscord-Italic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf RictyDiminished-Regular-patch.sfd
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished/RictyDiminishedDiscord-Regular.ttf
+RictyDiminishedNeoDiscord-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished-Bold-patch.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf
 	./mkfont.py $@ $^
 
 %.raw.ttx: %.raw.ttf
