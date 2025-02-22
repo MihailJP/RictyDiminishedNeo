@@ -42,7 +42,7 @@ Copyright (c) 2020 itouhiro
 Copyright (C) 2002-2019 M+ FONTS PROJECT
 Copyright (c) 2012-2024 MihailJP
 SIL Open Font License Version 1.1 (http://scripts.sil.org/ofl)"""
-font.version = "0.8"
+font.version = "0.9"
 font.sfntRevision = None
 
 ricty = fontforge.open(rictyFile)
