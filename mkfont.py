@@ -4,7 +4,17 @@ from sys import argv
 from math import radians
 import fontforge, psMat, re
 
+def selectGlyphsWorthOutputting(font, f = lambda _: True):
+	font.selection.none()
+	for glyph in font:
+		if font[glyph].isWorthOutputting() and f(font[glyph]):
+			font.selection.select(("more",), glyph)
+
 _, targetFile, ilgcFile, rictyFile, rictyPatchFile, discordFile, *_ = argv + [None] * 6
+
+blockElements = set(range(0x2500, 0x25a0)) \
+	| set(range(0x25e2, 0x25e6)) \
+	| set(range(0x1fb00, 0x1fbaf))
 
 font = fontforge.open(ilgcFile)
 tmpname = font.fontname.replace("InconsolataLGC", "RictyDiminishedNeo")
@@ -15,12 +25,13 @@ font.familyname = "Ricty Diminished Neo"
 font.em = 1000
 font.ascent = 860
 font.descent = 140
-font.selection.none()
-for glyph in font:
-	if font[glyph].isWorthOutputting():
-		font.selection.select(("more",), glyph)
+selectGlyphsWorthOutputting(font, lambda glyph: glyph.unicode not in blockElements)
 font.transform(psMat.scale(634/735), ("round",))
 font.transform(psMat.translate(-8, 0), ("round",))
+selectGlyphsWorthOutputting(font, lambda glyph: glyph.unicode in blockElements)
+font.transform(psMat.scale(500/599, 1), ("round",))
+font.transform(psMat.translate(0, 40), ("round",))
+selectGlyphsWorthOutputting(font)
 for glyph in font.selection.byGlyphs:
 	glyph.width = 500
 font.copyright = """Copyright (c) 2011-2017 Yasunori Yusa
@@ -64,12 +75,6 @@ font.os2_supxoff = ricty.os2_supxoff
 font.os2_supxsize = ricty.os2_supxsize
 font.os2_supyoff = ricty.os2_supyoff
 font.os2_supysize = ricty.os2_supysize
-
-def selectGlyphsWorthOutputting(font):
-	font.selection.none()
-	for glyph in font:
-		if font[glyph].isWorthOutputting():
-			font.selection.select(("more",), glyph)
 
 def glyphsWorthOutputting(font):
 	for glyph in font:
