@@ -10,7 +10,7 @@ def selectGlyphsWorthOutputting(font, f = lambda _: True):
 		if font[glyph].isWorthOutputting() and f(font[glyph]):
 			font.selection.select(("more",), glyph)
 
-_, targetFile, ilgcFile, rictyFile, rictyPatchFile, discordFile, *_ = argv + [None] * 6
+_, targetFile, ilgcFile, rictyFile, rictyPatchFile, mgenFile, discordFile, *_ = argv + [None] * 7
 
 blockElements = set(range(0x2500, 0x25a0)) \
 	| set(range(0x25e2, 0x25e6)) \
@@ -41,6 +41,7 @@ Copyright (c) 2010-2012 Dimosthenis Kaponis
 Copyright (c) 2020 itouhiro
 Copyright (C) 2002-2019 M+ FONTS PROJECT
 Copyright (c) 2012-2024 MihailJP
+Copyright (c) 2014, 2015 Adobe Systems Incorporated (http://www.adobe.com/), with Reserved Font Name 'Source'.
 SIL Open Font License Version 1.1 (http://scripts.sil.org/ofl)"""
 font.version = "0.9"
 font.sfntRevision = None
@@ -159,6 +160,21 @@ font.mergeFonts(ricty)
 font.encoding = "UnicodeFull"
 ricty.close()
 ricty = None
+
+# Merge Mgen+
+mgen = fontforge.open(mgenFile)
+mgen.em = 1000
+mgen.ascent = 860
+mgen.descent = 140
+selectGlyphsWorthOutputting(mgen)
+mgen.transform(psMat.compose(psMat.scale(0.91), psMat.translate(23, 0)), ('noWidth', 'round'))
+if font.italicangle != 0:
+	selectGlyphsWorthOutputting(mgen)
+	mgen.transform(psMat.skew(radians(-font.italicangle)), ("round",))
+font.mergeFonts(mgen)
+font.encoding = "UnicodeFull"
+mgen.close()
+mgen = None
 
 # Output
 font.generate(targetFile)
