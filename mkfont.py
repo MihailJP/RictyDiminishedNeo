@@ -99,14 +99,32 @@ def searchLookup(font, otTag, scriptCode):
 					return lookup
 	return None
 
-rejected_glyphs = []
+rejected_glyphs = set()
 for glyph in font:
 	if re.search(r'[^v]+circle($|\.)', glyph):
-		rejected_glyphs += [glyph]
+		rejected_glyphs.add(glyph)
 	elif re.search(r'\.smallnarrow', glyph):
-		rejected_glyphs += [glyph]
+		rejected_glyphs.add(glyph)
+	elif 0x25a0 <= font[glyph].unicode <= 0x25af:
+		rejected_glyphs.add(glyph)
+	elif 0x25b2 <= font[glyph].unicode <= 0x25cf:
+		rejected_glyphs.add(glyph)
+	elif 0x2605 <= font[glyph].unicode <= 0x2606:
+		rejected_glyphs.add(glyph)
+	elif 0x263c <= font[glyph].unicode <= 0x267d:
+		rejected_glyphs.add(glyph)
+	elif 0x2713 <= font[glyph].unicode <= 0x271d:
+		rejected_glyphs.add(glyph)
 for glyph in rejected_glyphs:
 	font.removeGlyph(glyph)
+rejected_glyphs = set()
+for glyph in ricty:
+	if 0x2660 <= ricty[glyph].unicode <= 0x2667:
+		rejected_glyphs.add(glyph)
+	elif 0x2713 <= ricty[glyph].unicode <= 0x271d:
+		rejected_glyphs.add(glyph)
+for glyph in rejected_glyphs:
+	ricty.removeGlyph(glyph)
 
 rictyPatch = fontforge.open(rictyPatchFile)
 ricty.mergeFonts(rictyPatch)
@@ -136,14 +154,14 @@ if re.search('Discord', ricty.fontname):
 	if discordFile:
 		discord = fontforge.open(discordFile)
 
-	modified_glyphs = [
+	modified_glyphs = {
 		"asterisk", "plus", "comma", "hyphen", "period",
 		"zero", "seven", "colon", "semicolon", "less", "equal", "greater",
 		"D", "Z", "asciicircum", "z", "bar", "asciitilde",
 		# "quotedbl", "quotesingle", "grave",
-	]
+	}
 	if font.italicangle == 0:
-		modified_glyphs += ["l", "r"]
+		modified_glyphs |= {"l", "r"}
 	font.selection.none()
 	discord.selection.none()
 	for glyph in modified_glyphs:
