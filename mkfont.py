@@ -99,6 +99,8 @@ def searchLookup(font, otTag, scriptCode):
 					return lookup
 	return None
 
+font.selection.select("uni233D", "uni2349")
+font.unlinkReferences()
 rejected_glyphs = set()
 for glyph in font:
 	if re.search(r'[^v]+circle($|\.)', glyph):
@@ -117,6 +119,7 @@ for glyph in font:
 		rejected_glyphs.add(glyph)
 for glyph in rejected_glyphs:
 	font.removeGlyph(glyph)
+
 rejected_glyphs = set()
 for glyph in ricty:
 	if 0x2660 <= ricty[glyph].unicode <= 0x2667:
