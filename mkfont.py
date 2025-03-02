@@ -43,7 +43,7 @@ Copyright (C) 2002-2019 M+ FONTS PROJECT
 Copyright (c) 2012-2024 MihailJP
 Copyright (c) 2014, 2015 Adobe Systems Incorporated (http://www.adobe.com/), with Reserved Font Name 'Source'.
 SIL Open Font License Version 1.1 (http://scripts.sil.org/ofl)"""
-font.version = "0.9"
+font.version = "0.10"
 font.sfntRevision = None
 
 ricty = fontforge.open(rictyFile)
