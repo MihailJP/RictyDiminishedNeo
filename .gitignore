@@ -3,3 +3,4 @@
 *.tar.xz
 ChangeLog
 RictyDiminishedNeo/
+!MgenPlus/*.ttf

@@ -10,7 +10,7 @@ def selectGlyphsWorthOutputting(font, f = lambda _: True):
 		if font[glyph].isWorthOutputting() and f(font[glyph]):
 			font.selection.select(("more",), glyph)
 
-_, targetFile, ilgcFile, rictyFile, rictyPatchFile, discordFile, *_ = argv + [None] * 6
+_, targetFile, ilgcFile, rictyFile, rictyPatchFile, mgenFile, discordFile, *_ = argv + [None] * 7
 
 blockElements = set(range(0x2500, 0x25a0)) \
 	| set(range(0x25e2, 0x25e6)) \
@@ -41,6 +41,7 @@ Copyright (c) 2010-2012 Dimosthenis Kaponis
 Copyright (c) 2020 itouhiro
 Copyright (C) 2002-2019 M+ FONTS PROJECT
 Copyright (c) 2012-2024 MihailJP
+Copyright (c) 2014, 2015 Adobe Systems Incorporated (http://www.adobe.com/), with Reserved Font Name 'Source'.
 SIL Open Font License Version 1.1 (http://scripts.sil.org/ofl)"""
 font.version = "0.9"
 font.sfntRevision = None
@@ -98,14 +99,35 @@ def searchLookup(font, otTag, scriptCode):
 					return lookup
 	return None
 
-rejected_glyphs = []
+font.selection.select("uni233D", "uni2349")
+font.unlinkReferences()
+rejected_glyphs = set()
 for glyph in font:
 	if re.search(r'[^v]+circle($|\.)', glyph):
-		rejected_glyphs += [glyph]
+		rejected_glyphs.add(glyph)
 	elif re.search(r'\.smallnarrow', glyph):
-		rejected_glyphs += [glyph]
+		rejected_glyphs.add(glyph)
+	elif 0x25a0 <= font[glyph].unicode <= 0x25af:
+		rejected_glyphs.add(glyph)
+	elif 0x25b2 <= font[glyph].unicode <= 0x25cf:
+		rejected_glyphs.add(glyph)
+	elif 0x2605 <= font[glyph].unicode <= 0x2606:
+		rejected_glyphs.add(glyph)
+	elif 0x263c <= font[glyph].unicode <= 0x267d:
+		rejected_glyphs.add(glyph)
+	elif 0x2713 <= font[glyph].unicode <= 0x271d:
+		rejected_glyphs.add(glyph)
 for glyph in rejected_glyphs:
 	font.removeGlyph(glyph)
+
+rejected_glyphs = set()
+for glyph in ricty:
+	if 0x2660 <= ricty[glyph].unicode <= 0x2667:
+		rejected_glyphs.add(glyph)
+	elif 0x2713 <= ricty[glyph].unicode <= 0x271d:
+		rejected_glyphs.add(glyph)
+for glyph in rejected_glyphs:
+	ricty.removeGlyph(glyph)
 
 rictyPatch = fontforge.open(rictyPatchFile)
 ricty.mergeFonts(rictyPatch)
@@ -135,14 +157,14 @@ if re.search('Discord', ricty.fontname):
 	if discordFile:
 		discord = fontforge.open(discordFile)
 
-	modified_glyphs = [
+	modified_glyphs = {
 		"asterisk", "plus", "comma", "hyphen", "period",
 		"zero", "seven", "colon", "semicolon", "less", "equal", "greater",
 		"D", "Z", "asciicircum", "z", "bar", "asciitilde",
 		# "quotedbl", "quotesingle", "grave",
-	]
+	}
 	if font.italicangle == 0:
-		modified_glyphs += ["l", "r"]
+		modified_glyphs |= {"l", "r"}
 	font.selection.none()
 	discord.selection.none()
 	for glyph in modified_glyphs:
@@ -159,6 +181,21 @@ font.mergeFonts(ricty)
 font.encoding = "UnicodeFull"
 ricty.close()
 ricty = None
+
+# Merge Mgen+
+mgen = fontforge.open(mgenFile)
+mgen.em = 1000
+mgen.ascent = 860
+mgen.descent = 140
+selectGlyphsWorthOutputting(mgen)
+mgen.transform(psMat.compose(psMat.scale(0.91), psMat.translate(23, 0)), ('noWidth', 'round'))
+if font.italicangle != 0:
+	selectGlyphsWorthOutputting(mgen)
+	mgen.transform(psMat.skew(radians(-font.italicangle)), ("round",))
+font.mergeFonts(mgen)
+font.encoding = "UnicodeFull"
+mgen.close()
+mgen = None
 
 # Output
 font.generate(targetFile)
