@@ -197,5 +197,8 @@ font.encoding = "UnicodeFull"
 mgen.close()
 mgen = None
 
+# Update `aalt` feature
+font.buildOrReplaceAALTFeatures()
+
 # Output
 font.generate(targetFile)
