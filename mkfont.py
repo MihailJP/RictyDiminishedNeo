@@ -12,10 +12,13 @@ def selectGlyphsWorthOutputting(font, f = lambda _: True):
 
 _, targetFile, ilgcFile, rictyFile, rictyPatchFile, mgenFile, discordFile, *_ = argv + [None] * 7
 
-blockElements = set(range(0x2500, 0x25a0)) \
+blockElements = {0x2429} \
+	| set(range(0x2500, 0x25a0)) \
 	| set(range(0x25e2, 0x25e6)) \
 	| set(range(0xe0b0, 0xe0b4)) \
-	| set(range(0x1fb00, 0x1fbaf))
+	| set(range(0x1cd00, 0x1ceb0)) \
+	| set(range(0x1cc21, 0x1cc30)) \
+	| set(range(0x1fb00, 0x1fbf0))
 
 font = fontforge.open(ilgcFile)
 tmpname = font.fontname.replace("InconsolataLGC", "RictyDiminishedNeo")
