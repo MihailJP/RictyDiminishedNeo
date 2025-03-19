@@ -10,7 +10,7 @@ def selectGlyphsWorthOutputting(font, f = lambda _: True):
 		if font[glyph].isWorthOutputting() and f(font[glyph]):
 			font.selection.select(("more",), glyph)
 
-_, targetFile, ilgcFile, rictyFile, rictyPatchFile, mgenFile, discordFile, *_ = argv + [None] * 7
+_, targetFile, ilgcFile, rictyFile, rictyPatchFile, shsansFile, mgenFile, discordFile, *_ = argv + [None] * 8
 
 blockElements = {0x2429} \
 	| set(range(0x2500, 0x25a0)) \
@@ -44,9 +44,9 @@ Copyright (c) 2010-2012 Dimosthenis Kaponis
 Copyright (c) 2020 itouhiro
 Copyright (C) 2002-2019 M+ FONTS PROJECT
 Copyright (c) 2012-2024 MihailJP
-Copyright (c) 2014, 2015 Adobe Systems Incorporated (http://www.adobe.com/), with Reserved Font Name 'Source'.
+Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'. Source is a trademark of Adobe in the United States and/or other countries.
 SIL Open Font License Version 1.1 (http://scripts.sil.org/ofl)"""
-font.version = "0.10"
+font.version = "0.97"
 font.sfntRevision = None
 
 ricty = fontforge.open(rictyFile)
@@ -80,6 +80,22 @@ font.os2_supxoff = ricty.os2_supxoff
 font.os2_supxsize = ricty.os2_supxsize
 font.os2_supyoff = ricty.os2_supyoff
 font.os2_supysize = ricty.os2_supysize
+
+shsans = fontforge.open(shsansFile)
+makingCache = bool(re.search("SourceHan", targetFile))
+tags = {
+	"Ideographs": ("jp83", "jp78", "nlck"),
+	"Dingbats": (),
+	"Generic": (),
+	"AlphabeticDigits": (),
+	"HDingbats": (),
+}
+
+def selectGlyphsWorthOutputting(font):
+	font.selection.none()
+	for glyph in font:
+		if font[glyph].isWorthOutputting():
+			font.selection.select(("more",), glyph)
 
 def glyphsWorthOutputting(font):
 	for glyph in font:
@@ -123,31 +139,37 @@ for glyph in font:
 for glyph in rejected_glyphs:
 	font.removeGlyph(glyph)
 
-rejected_glyphs = set()
-for glyph in ricty:
-	if 0x2660 <= ricty[glyph].unicode <= 0x2667:
-		rejected_glyphs.add(glyph)
-	elif 0x2713 <= ricty[glyph].unicode <= 0x271d:
-		rejected_glyphs.add(glyph)
-for glyph in rejected_glyphs:
-	ricty.removeGlyph(glyph)
+if not makingCache:
+	rejected_glyphs = set()
+	for glyph in ricty:
+		if 0x2660 <= ricty[glyph].unicode <= 0x2667:
+			rejected_glyphs.add(glyph)
+		elif 0x2713 <= ricty[glyph].unicode <= 0x271d:
+			rejected_glyphs.add(glyph)
+	for glyph in rejected_glyphs:
+		ricty.removeGlyph(glyph)
 
-rictyPatch = fontforge.open(rictyPatchFile)
-ricty.mergeFonts(rictyPatch)
-lookup = searchLookup(ricty, 'ccmp', 'kana')
-subtable = ricty.getLookupSubtables(lookup)[0]
-for glyph in glyphsWorthOutputting(ricty):
-	if ricty[glyph].color == 0xff00ff:
-		glyphPattern = re.search(r'^(uni30[0-9A-F]{2})_(uni309[9A])\.ccmp$', glyph, re.A)
-		if glyphPattern:
-			print(glyph)
-			ricty[glyph].addPosSub(subtable, glyphPattern.group(1, 2))
-rictyPatch.close()
-rictyPatch = None
+	rictyPatch = fontforge.open(rictyPatchFile)
+	ricty.mergeFonts(rictyPatch)
+	lookup = searchLookup(ricty, 'ccmp', 'kana')
+	subtable = ricty.getLookupSubtables(lookup)[0]
+	for glyph in glyphsWorthOutputting(ricty):
+		if ricty[glyph].color == 0xff00ff:
+			glyphPattern = re.search(r'^(uni30[0-9A-F]{2})_(uni309[9A])\.ccmp$', glyph, re.A)
+			if glyphPattern:
+				print(glyph)
+				ricty[glyph].addPosSub(subtable, glyphPattern.group(1, 2))
+	rictyPatch.close()
+	rictyPatch = None
 
 if font.italicangle != 0:
 	selectGlyphsWorthOutputting(ricty)
 	ricty.transform(psMat.skew(radians(-font.italicangle)), ("round",))
+
+	for subfont in range(shsans.cidsubfontcnt):
+		shsans.cidsubfont = subfont
+		selectGlyphsWorthOutputting(shsans)
+		shsans.transform(psMat.skew(radians(-font.italicangle)), ("round",))
 
 if re.search('Discord', ricty.fontname):
 	tmpname = font.fontname.replace("RictyDiminishedNeo", "RictyDiminishedNeoDiscord")
@@ -185,23 +207,107 @@ font.encoding = "UnicodeFull"
 ricty.close()
 ricty = None
 
-# Merge Mgen+
-mgen = fontforge.open(mgenFile)
-mgen.em = 1000
-mgen.ascent = 860
-mgen.descent = 140
-selectGlyphsWorthOutputting(mgen)
-mgen.transform(psMat.compose(psMat.scale(0.91), psMat.translate(23, 0)), ('noWidth', 'round'))
-if font.italicangle != 0:
+# Making cache
+if makingCache:
+	for subfont in tags.keys():
+		selectCidSubfont(shsans, subfont)
+
+		# Rename glyphs, find glyphs already in the target font
+		for glyph in glyphsWorthOutputting(shsans):
+			if shsans[glyph].glyphname.startswith('Identity') and shsans[glyph].unicode >= 0:
+				newName = ""
+				if shsans[glyph].unicode in font and font[shsans[glyph].unicode].isWorthOutputting():
+					shsans[glyph].color = 0xffff00
+					newName = font[shsans[glyph].unicode].glyphname
+				else:
+					shsans[glyph].color = 0x00ffff
+					newName = fontforge.nameFromUnicode(shsans[glyph].unicode)
+				print("Rename glyph '{0}' -> '{1}'".format(glyph, newName))
+				shsans[glyph].glyphname = newName
+				if subfont == "Ideographs":
+					for lookup in shsans[newName].getPosSub("*"):
+						if lookup[0].startswith("'jp90'"):
+							if lookup[2].startswith('Identity'):
+								if (newName + ".jp90") in font:
+									shsans[lookup[2]].color = 0xffff00
+								else:
+									shsans[lookup[2]].color = 0x00ffff
+								print("Rename glyph '{0}' -> '{1}.jp90'".format(lookup[2], newName))
+								shsans[lookup[2]].glyphname = newName + "." + tag
+				for tag in ("jp83", "jp78", "nlck"):
+					for lookup in shsans[newName].getPosSub("*"):
+						if lookup[0].startswith("'" + tag + "'"):
+							if lookup[2] in shsans and lookup[2].startswith('Identity') and shsans[lookup[2]].unicode == -1:
+								print("Rename glyph '{0}' -> '{1}.{2}'".format(lookup[2], newName, tag))
+								shsans[lookup[2]].color = 0x00ffff
+								shsans[lookup[2]].glyphname = newName + "." + tag
+			elif shsans[glyph].glyphname.startswith('Identity') and shsans[glyph].altuni:
+				for altUniVal, variationSelector, reserved in shsans[glyph].altuni:
+					if variationSelector >= 0:
+						newName = fontforge.nameFromUnicode(altUniVal) + "_" + fontforge.nameFromUnicode(variationSelector)
+						print("Rename glyph '{0}' -> '{1}'".format(glyph, newName))
+						shsans[glyph].color = 0x00ffff
+						shsans[glyph].glyphname = newName
+						break
+
+		# Remove unneeded glyphs
+		rejected_glyphs = []
+		for glyph in shsans:
+			if glyph.startswith('Identity'):
+				rejected_glyphs += [glyph]
+		for glyph in rejected_glyphs:
+			print("Removing glyph '{0}'".format(glyph))
+			shsans.removeGlyph(glyph)
+
+		# Output
+		shsans.save(targetFile)
+
+# Making font
+else:
+	for subfont in tags.keys():
+		selectCidSubfont(shsans, subfont)
+
+		# Merge Source Han Sans
+		selectGlyphsWorthOutputting(shsans)
+		shsans.transform(psMat.compose(psMat.scale(0.91), psMat.translate(23, 0)), ('noWidth', 'round'))
+		font.mergeFonts(shsans)
+		font.encoding = "UnicodeFull"
+
+	# Remove unneeded lookups
+	for lookup in font.gsub_lookups:
+		if re.search("'aalt'", lookup) or lookup.startswith(shsans.cidfontname + "-'locl'"):
+			font.removeLookup(lookup)
+
+	# Add missing entries into 'jp83' and 'jp78' lookup tables
+	shsans.cidFlatten()
+	for tag in tags["Ideographs"]:
+		for lookup in font.gsub_lookups:
+			if re.search("-'" + tag + "'", lookup):
+				font.removeLookup(lookup)
+		for lookup in shsans.gsub_lookups:
+			if re.search("'" + tag + "'", lookup):
+				font.importLookups(shsans, lookup)
+
+	shsans.close()
+	shsans = None
+
+	# Merge Mgen+
+	mgen = fontforge.open(mgenFile)
+	mgen.em = 1000
+	mgen.ascent = 860
+	mgen.descent = 140
 	selectGlyphsWorthOutputting(mgen)
-	mgen.transform(psMat.skew(radians(-font.italicangle)), ("round",))
-font.mergeFonts(mgen)
-font.encoding = "UnicodeFull"
-mgen.close()
-mgen = None
+	mgen.transform(psMat.compose(psMat.scale(0.91), psMat.translate(23, 0)), ('noWidth', 'round'))
+	if font.italicangle != 0:
+		selectGlyphsWorthOutputting(mgen)
+		mgen.transform(psMat.skew(radians(-font.italicangle)), ("round",))
+	font.mergeFonts(mgen)
+	font.encoding = "UnicodeFull"
+	mgen.close()
+	mgen = None
 
-# Update `aalt` feature
-font.buildOrReplaceAALTFeatures()
+	# Update `aalt` feature
+	font.buildOrReplaceAALTFeatures()
 
-# Output
-font.generate(targetFile)
+	# Output
+	font.generate(targetFile)

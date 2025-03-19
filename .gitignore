@@ -1,6 +1,7 @@
 *.ttf
 *.ttx
 *.tar.xz
+SourceHanSans-*.sfd
 ChangeLog
 RictyDiminishedNeo/
 !MgenPlus/*.ttf
