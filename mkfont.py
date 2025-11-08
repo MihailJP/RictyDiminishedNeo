@@ -310,4 +310,4 @@ else:
 	font.buildOrReplaceAALTFeatures()
 
 	# Output
-	font.generate(targetFile)
+	font.generate(targetFile, flags=("opentype", "no-mac-names"))
