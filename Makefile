@@ -11,7 +11,7 @@ CACHES=SourceHanSans-Regular.sfd SourceHanSans-Bold.sfd
 .PHONY: all
 all: ${TARGETS}
 
-.INTERMEDIATE: ${TARGETS:.ttf=.ttx} ${TARGETS:.ttf=.raw.ttf} ${TARGETS:.ttf=.raw.ttx}
+.INTERMEDIATE: ${TARGETS:.ttf=.ttx} ${TARGETS:.ttf=.raw.sfd} ${TARGETS:.ttf=.raw.ttf} ${TARGETS:.ttf=.raw.ttx}
 .PRECIOUS: ${CACHES}
 
 SourceHanSans-Regular.sfd: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminished-Regular.ttf SourceHanSans/OTF/Japanese/SourceHanSans-Regular.otf
@@ -65,4 +65,5 @@ RictyDiminishedNeo.tar.xz: ${TARGETS} ${DOCUMENTS}
 clean:
 	-rm -f ${TARGETS} ${PACKAGES}
 	-rm -f ${TARGETS:.ttf=.ttx} ${TARGETS:.ttf=.raw.ttf} ${TARGETS:.ttf=.raw.ttx} ${CACHES}
+	-rm -f ${TARGETS:.ttf=.raw.sfd}
 	-rm -rf ${PACKAGES:.tar.xz=}

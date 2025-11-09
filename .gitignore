@@ -1,6 +1,7 @@
 *.ttf
 *.ttx
 *.tar.xz
+*.raw.sfd
 SourceHanSans-*.sfd
 ChangeLog
 RictyDiminishedNeo/

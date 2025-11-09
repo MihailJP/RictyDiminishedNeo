@@ -56,7 +56,6 @@ jobs:
           -xsmart_dropout \
           -xcase_mapping \
           -xfile_size \
-          -xnested_components \
           -xoverlapping_path_segments \
           -xwhitespace_ink \
           -xbase_has_width \
@@ -69,7 +68,6 @@ jobs:
           -xsmart_dropout \
           -xcase_mapping \
           -xfile_size \
-          -xnested_components \
           -xoverlapping_path_segments \
           -xwhitespace_ink \
           -xbase_has_width \
