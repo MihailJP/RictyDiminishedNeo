@@ -2,7 +2,7 @@ TARGETS=RictyDiminishedNeo.ttf RictyDiminishedNeo-Bold.ttf \
 RictyDiminishedNeo-Italic.ttf RictyDiminishedNeo-BoldItalic.ttf \
 RictyDiminishedNeoDiscord.ttf RictyDiminishedNeoDiscord-Bold.ttf \
 RictyDiminishedNeoDiscord-Italic.ttf RictyDiminishedNeoDiscord-BoldItalic.ttf
-DOCUMENTS=README.md ChangeLog LICENSE
+DOCUMENTS=README.md ChangeLog OFL.txt
 PACKAGES=RictyDiminishedNeo.tar.xz
 CACHES=SourceHanSans-Regular.sfd SourceHanSans-Bold.sfd
 
