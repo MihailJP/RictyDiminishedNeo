@@ -16,4 +16,4 @@ Ricty Diminished にあったバッククォートの問題が発生しないよ
 ライセンス
 ==========
 
-[SIL Open Font License Version 1.1](LICENSE)
+[SIL Open Font License Version 1.1](OFL.txt)
