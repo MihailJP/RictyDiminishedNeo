@@ -55,6 +55,7 @@ jobs:
       run: |
         source venv/bin/activate
         fontbakery check-universal \
+          -xfontdata_namecheck \
           -xopentype/STAT/ital_axis \
           -xcase_mapping \
           -xfile_size \
@@ -66,6 +67,7 @@ jobs:
       run: |
         source venv/bin/activate
         fontbakery check-universal \
+          -xfontdata_namecheck \
           -xopentype/STAT/ital_axis \
           -xcase_mapping \
           -xfile_size \
