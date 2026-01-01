@@ -311,7 +311,7 @@ else:
 	shsans.close()
 	shsans = None
 
-	# Merge Mgen+
+	# Open Mgen+
 	mgen = fontforge.open(mgenFile)
 	mgen.em = 1000
 	mgen.ascent = 860
@@ -321,6 +321,19 @@ else:
 	if font.italicangle != 0:
 		selectGlyphsWorthOutputting(mgen)
 		mgen.transform(psMat.skew(radians(-font.italicangle)), ("round",))
+
+	# Remove unneeded glyphs
+	rejected_glyphs = []
+	for glyph in mgen:
+		if glyph.startswith('cid'):
+			rejected_glyphs += [glyph]
+		elif glyph.endswith('.vert'):
+			rejected_glyphs += [glyph]
+	for glyph in rejected_glyphs:
+		print("Removing glyph '{0}'".format(glyph))
+		mgen.removeGlyph(glyph)
+
+	# Merge Mgen+
 	font.mergeFonts(mgen)
 	font.encoding = "UnicodeFull"
 	mgen.close()
