@@ -62,6 +62,7 @@ jobs:
           -xoverlapping_path_segments \
           -xwhitespace_ink \
           -xbase_has_width \
+          -xcjk_chws_feature \
           ttf/RictyDiminishedNeo.ttf ttf/RictyDiminishedNeo-*.ttf
     - name: Check Ricty Diminished Neo Discord Fonts
       run: |
@@ -74,4 +75,5 @@ jobs:
           -xoverlapping_path_segments \
           -xwhitespace_ink \
           -xbase_has_width \
+          -xcjk_chws_feature \
           ttf/RictyDiminishedNeoDiscord*.ttf
