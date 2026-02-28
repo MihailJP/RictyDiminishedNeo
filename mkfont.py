@@ -308,6 +308,11 @@ else:
 			if re.search("'" + tag + "'", lookup):
 				font.importLookups(shsans, lookup)
 
+	# Reopen font (workaround)
+	font.save(targetFile.replace('.ttf','.sfd'))
+	oldfont = font
+	font = fontforge.open(targetFile.replace('.ttf','.sfd'))
+
 	# Copy altuni
 	for glyph in set(font) & set(shsans):
 		if shsans[glyph].altuni:
@@ -354,7 +359,7 @@ else:
 
 	# Reopen font (workaround)
 	font.save(targetFile.replace('.ttf','.sfd'))
-	oldfont = font
+	font.close()
 	font = fontforge.open(targetFile.replace('.ttf','.sfd'))
 
 	# Decompose nested references
