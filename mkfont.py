@@ -308,6 +308,16 @@ else:
 			if re.search("'" + tag + "'", lookup):
 				font.importLookups(shsans, lookup)
 
+	# Copy altuni
+	for glyph in set(font) & set(shsans):
+		if shsans[glyph].altuni:
+			if font[glyph].altuni:
+				print("Add altuni {0} to glyph '{1}'".format(str(shsans[glyph].altuni), glyph))
+				font[glyph].altuni = tuple(set(font[glyph].altuni + shsans[glyph].altuni))
+			else:
+				print("Set altuni {0} to glyph '{1}'".format(str(shsans[glyph].altuni), glyph))
+				font[glyph].altuni = shsans[glyph].altuni
+
 	shsans.close()
 	shsans = None
 
