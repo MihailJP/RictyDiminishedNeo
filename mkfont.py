@@ -262,8 +262,8 @@ if makingCache:
 								shsans[lookup[2]].color = 0x00ffff
 								shsans[lookup[2]].glyphname = newName + "." + tag
 			elif shsans[glyph].glyphname.startswith('Identity') and shsans[glyph].altuni:
-				for altUniVal, variationSelector, reserved in shsans[glyph].altuni:
-					if variationSelector >= 0:
+				for altUniVal, variationSelector, _ in shsans[glyph].altuni:
+					if variationSelector > 0:
 						newName = fontforge.nameFromUnicode(altUniVal) + "_" + fontforge.nameFromUnicode(variationSelector)
 						print("Rename glyph '{0}' -> '{1}'".format(glyph, newName))
 						shsans[glyph].color = 0x00ffff
@@ -316,12 +316,15 @@ else:
 	# Copy altuni
 	for glyph in set(font) & set(shsans):
 		if shsans[glyph].altuni:
-			if font[glyph].altuni:
-				print("Add altuni {0} to glyph '{1}'".format(str(shsans[glyph].altuni), glyph))
-				font[glyph].altuni = tuple(set(font[glyph].altuni + shsans[glyph].altuni))
-			else:
-				print("Set altuni {0} to glyph '{1}'".format(str(shsans[glyph].altuni), glyph))
-				font[glyph].altuni = shsans[glyph].altuni
+			for altUniVal, variationSelector, _ in shsans[glyph].altuni:
+				if variationSelector > 0:
+					newAltUni = (altUniVal, variationSelector, 0)
+					if font[glyph].altuni:
+						print("Add altuni {0} to glyph '{1}'".format(str(newAltUni), glyph))
+						font[glyph].altuni = tuple(set(font[glyph].altuni + (newAltUni,)))
+					else:
+						print("Set altuni {0} to glyph '{1}'".format(str(newAltUni), glyph))
+						font[glyph].altuni = (newAltUni,)
 
 	shsans.close()
 	shsans = None
