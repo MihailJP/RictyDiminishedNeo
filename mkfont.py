@@ -3,6 +3,7 @@
 from sys import argv
 from math import radians
 import fontforge, psMat, re
+import fontforge_refsel
 
 def selectGlyphsWorthOutputting(font, f = lambda _: True):
 	font.selection.none()
@@ -10,23 +11,6 @@ def selectGlyphsWorthOutputting(font, f = lambda _: True):
 		if font[glyph].isWorthOutputting() and f(font[glyph]):
 			font.selection.select(("more",), glyph)
 
-def decomposeNestedRefs(font):
-	while True:
-		nestedRefsFound = False
-		for glyph in font.glyphs():
-			decomposedRef = []
-			for ref in glyph.references:
-				(srcglyph, matrix, _) = ref
-				if len(font[srcglyph].references) > 0:
-					print("Glyph " + glyph.glyphname + " has a nested reference to " + srcglyph)
-					for srcref in font[srcglyph].references:
-						decomposedRef += [(srcref[0], psMat.compose(srcref[1], matrix), False)]
-					nestedRefsFound = True
-				else:
-					decomposedRef += [ref]
-			glyph.references = tuple(decomposedRef)
-		if not nestedRefsFound:
-			break
 
 _, targetFile, ilgcFile, rictyFile, rictyPatchFile, shsansFile, mgenFile, discordFile, *_ = argv + [None] * 8
 
@@ -366,7 +350,12 @@ else:
 	font = fontforge.open(targetFile.replace('.ttf','.sfd'))
 
 	# Decompose nested references
-	decomposeNestedRefs(font)
+	fontforge_refsel.decomposeNestedRefs(font)
+
+	# Remove unreachable glyphs
+	for glyph in fontforge_refsel.unusedGlyphs(font):
+		print("Remove unreachable glyph '{0}'".format(glyph))
+		font.removeGlyph(glyph)
 
 	# Output
 	font.generate(targetFile, flags=("opentype", "no-mac-names", "no-FFTM-table"))
