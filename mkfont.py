@@ -369,4 +369,4 @@ else:
 	decomposeNestedRefs(font)
 
 	# Output
-	font.generate(targetFile, flags=("opentype", "no-mac-names"))
+	font.generate(targetFile, flags=("opentype", "no-mac-names", "no-FFTM-table"))
