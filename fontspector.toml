@@ -1,0 +1,14 @@
+exclude_checks = [
+    'opentype/STAT/ital_axis',
+    'case_mapping',
+    'file_size',  # inevitable
+    'overlapping_path_segments',  # out of memory
+    'whitespace_ink',  # Fullwidth space not a whitespace in coding
+    'base_has_width',
+    'cjk_chws_feature',  # not needed for programming font
+]
+
+[[overrides]]  # Fontbakery workaround
+code = 'namecheck-service'
+status = 'SKIP'
+reason = 'Skip if this external service is offline'
