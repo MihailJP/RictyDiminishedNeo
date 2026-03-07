@@ -12,3 +12,18 @@ exclude_checks = [
 code = 'namecheck-service'
 status = 'SKIP'
 reason = 'Skip if this external service is offline'
+
+[[overrides]]
+code = 'ascent'
+status = 'INFO'
+reason = 'For CJK programming font this is not a real issue'
+
+[[overrides]]
+code = 'descent'
+status = 'INFO'
+reason = 'For CJK programming font this is not a real issue'
+
+[[overrides]]
+code = 'nameid4-too-long'
+status = 'WARN'
+reason = 'Postponed'
