@@ -23,9 +23,9 @@ blockElements = {0x2429} \
 	| set(range(0x1fb00, 0x1fbf0))
 
 font = fontforge.open(ilgcFile)
-tmpname = font.fontname.replace("InconsolataLGC", "RictyDiminishedNeo")
+tmpname = font.fontname.replace("InconsolataEX", "RictyDiminishedNeo")
 font.fontname = tmpname
-tmpname = font.fullname.replace("Inconsolata LGC", "Ricty Diminished Neo")
+tmpname = font.fullname.replace("Inconsolata EX", "Ricty Diminished Neo")
 font.fullname = tmpname
 font.familyname = "Ricty Diminished Neo"
 font.em = 1000
@@ -132,7 +132,9 @@ for glyph in font:
 		rejected_glyphs.add(glyph)
 	elif 0x25a0 <= font[glyph].unicode <= 0x25af:
 		rejected_glyphs.add(glyph)
-	elif 0x25b2 <= font[glyph].unicode <= 0x25cf:
+	elif 0x25b2 <= font[glyph].unicode <= 0x25cb:
+		rejected_glyphs.add(glyph)
+	elif 0x25cd <= font[glyph].unicode <= 0x25cf:
 		rejected_glyphs.add(glyph)
 	elif 0x2605 <= font[glyph].unicode <= 0x2606:
 		rejected_glyphs.add(glyph)

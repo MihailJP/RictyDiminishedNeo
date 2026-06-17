@@ -14,6 +14,15 @@ all: ${TARGETS}
 .INTERMEDIATE: ${TARGETS:.ttf=.ttx} ${TARGETS:.ttf=.raw.sfd} ${TARGETS:.ttf=.raw.ttf} ${TARGETS:.ttf=.raw.ttx} ${TARGETS:.ttf=.raw.sfd}
 .PRECIOUS: ${CACHES}
 
+Inconsolata-LGC/Inconsolata-EX.sfd: Inconsolata-LGC/Inconsolata-LGC.sfd
+	cd Inconsolata-LGC; $(MAKE) Inconsolata-EX.sfd
+Inconsolata-LGC/Inconsolata-EX-Italic.sfd: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd
+	cd Inconsolata-LGC; $(MAKE) Inconsolata-EX-Italic.sfd
+Inconsolata-LGC/Inconsolata-EX-Bold.sfd: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd
+	cd Inconsolata-LGC; $(MAKE) Inconsolata-EX-Bold.sfd
+Inconsolata-LGC/Inconsolata-EX-BoldItalic.sfd: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd
+	cd Inconsolata-LGC; $(MAKE) Inconsolata-EX-BoldItalic.sfd
+
 SourceHanSans-Regular.sfd: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminished-Regular.ttf SourceHanSans/OTF/Japanese/SourceHanSans-Regular.otf
 	./mkfont.py $@ $(wordlist 1,2,$^) "" $(word 3,$^)
 
@@ -21,28 +30,28 @@ SourceHanSans-Bold.sfd: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished
 	./mkfont.py $@ $(wordlist 1,2,$^) "" $(word 3,$^)
 
 
-RictyDiminishedNeo.raw.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminished-Regular.ttf RictyDiminished-Regular-patch.sfd SourceHanSans-Regular.sfd MgenPlus/mgenplus-1m-regular.ttf
+RictyDiminishedNeo.raw.ttf: Inconsolata-LGC/Inconsolata-EX.sfd RictyDiminished/RictyDiminished-Regular.ttf RictyDiminished-Regular-patch.sfd SourceHanSans-Regular.sfd MgenPlus/mgenplus-1m-regular.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeo-Bold.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminished-Bold.ttf RictyDiminished-Bold-patch.sfd SourceHanSans-Bold.sfd MgenPlus/mgenplus-1m-bold.ttf
+RictyDiminishedNeo-Bold.raw.ttf: Inconsolata-LGC/Inconsolata-EX-Bold.sfd RictyDiminished/RictyDiminished-Bold.ttf RictyDiminished-Bold-patch.sfd SourceHanSans-Bold.sfd MgenPlus/mgenplus-1m-bold.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeo-Italic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd RictyDiminished/RictyDiminished-Regular.ttf RictyDiminished-Regular-patch.sfd SourceHanSans-Regular.sfd MgenPlus/mgenplus-1m-regular.ttf
+RictyDiminishedNeo-Italic.raw.ttf: Inconsolata-LGC/Inconsolata-EX-Italic.sfd RictyDiminished/RictyDiminished-Regular.ttf RictyDiminished-Regular-patch.sfd SourceHanSans-Regular.sfd MgenPlus/mgenplus-1m-regular.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeo-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd RictyDiminished/RictyDiminished-Bold.ttf RictyDiminished-Bold-patch.sfd SourceHanSans-Bold.sfd MgenPlus/mgenplus-1m-bold.ttf
+RictyDiminishedNeo-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-EX-BoldItalic.sfd RictyDiminished/RictyDiminished-Bold.ttf RictyDiminished-Bold-patch.sfd SourceHanSans-Bold.sfd MgenPlus/mgenplus-1m-bold.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord.raw.ttf: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf RictyDiminished-Regular-patch.sfd SourceHanSans-Regular.sfd MgenPlus/mgenplus-1m-regular.ttf
+RictyDiminishedNeoDiscord.raw.ttf: Inconsolata-LGC/Inconsolata-EX.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf RictyDiminished-Regular-patch.sfd SourceHanSans-Regular.sfd MgenPlus/mgenplus-1m-regular.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord-Bold.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished-Bold-patch.sfd SourceHanSans-Bold.sfd MgenPlus/mgenplus-1m-bold.ttf RictyDiminished/RictyDiminishedDiscord-Regular.ttf
+RictyDiminishedNeoDiscord-Bold.raw.ttf: Inconsolata-LGC/Inconsolata-EX-Bold.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished-Bold-patch.sfd SourceHanSans-Bold.sfd MgenPlus/mgenplus-1m-bold.ttf RictyDiminished/RictyDiminishedDiscord-Regular.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord-Italic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf RictyDiminished-Regular-patch.sfd SourceHanSans-Regular.sfd MgenPlus/mgenplus-1m-regular.ttf
+RictyDiminishedNeoDiscord-Italic.raw.ttf: Inconsolata-LGC/Inconsolata-EX-Italic.sfd RictyDiminished/RictyDiminishedDiscord-Regular.ttf RictyDiminished-Regular-patch.sfd SourceHanSans-Regular.sfd MgenPlus/mgenplus-1m-regular.ttf
 	./mkfont.py $@ $^
 
-RictyDiminishedNeoDiscord-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished-Bold-patch.sfd SourceHanSans-Bold.sfd MgenPlus/mgenplus-1m-bold.ttf RictyDiminished/RictyDiminishedDiscord-Regular.ttf
+RictyDiminishedNeoDiscord-BoldItalic.raw.ttf: Inconsolata-LGC/Inconsolata-EX-BoldItalic.sfd RictyDiminished/RictyDiminishedDiscord-Bold.ttf RictyDiminished-Bold-patch.sfd SourceHanSans-Bold.sfd MgenPlus/mgenplus-1m-bold.ttf RictyDiminished/RictyDiminishedDiscord-Regular.ttf
 	./mkfont.py $@ $^
 
 %.raw.ttx: %.raw.ttf
@@ -63,6 +72,7 @@ RictyDiminishedNeo.tar.xz: ${TARGETS} ${DOCUMENTS}
 
 .PHONY: clean
 clean:
+	-cd Inconsolata-LGC; $(MAKE) clean
 	-rm -f ${TARGETS} ${PACKAGES}
 	-rm -f ${TARGETS:.ttf=.ttx} ${TARGETS:.ttf=.raw.ttf} ${TARGETS:.ttf=.raw.ttx} ${CACHES}
 	-rm -f ${TARGETS:.ttf=.raw.sfd}
