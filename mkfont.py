@@ -39,7 +39,7 @@ font.transform(psMat.scale(500/599, 1000/1110), ("round",))
 font.transform(psMat.translate(0, 34), ("round",))
 selectGlyphsWorthOutputting(font)
 for glyph in font.selection.byGlyphs:
-	glyph.width = 500
+	glyph.width = 500 if glyph.width > 0 else 0
 font.copyright = """Copyright (c) 2011-2017 Yasunori Yusa
 Copyright (c) 2006 Raph Levien
 Copyright (c) 2010-2012 Dimosthenis Kaponis
@@ -284,6 +284,11 @@ else:
 		if re.search("'aalt'", lookup) or lookup.startswith(shsans.cidfontname + "-'locl'"):
 			font.removeLookup(lookup)
 
+	# Cleanup lookups
+	for lookup in (lu for lu in list(font.gsub_lookups) + list(font.gpos_lookups) if lu.startswith('SourceHanSans')):
+		newFSL = tuple(tuple([s[0], tuple(lng for lng in s[1] if (lng[0] not in ['latn', 'grek', 'cyrl']) or ('JAN ' not in lng[1]))]) for s in font.getLookupInfo(lookup)[2])
+		font.lookupSetFeatureList(lookup, newFSL)
+
 	# Add missing entries into 'jp83' and 'jp78' lookup tables
 	shsans.cidFlatten()
 	for tag in tags["Ideographs"]:
@@ -293,10 +298,12 @@ else:
 		for lookup in shsans.gsub_lookups:
 			if re.search("'" + tag + "'", lookup):
 				font.importLookups(shsans, lookup)
+				newFSL = tuple(tuple([s[0], tuple(lng for lng in s[1] if (lng[0] not in ['latn', 'grek', 'cyrl']) or ('JAN ' not in lng[1]))]) for s in font.getLookupInfo(lookup)[2])
+				font.lookupSetFeatureList(lookup, newFSL)
 
 	# Reopen font (workaround)
 	font.save(targetFile.replace('.ttf','.sfd'))
-	oldfont = font
+	font.close()
 	font = fontforge.open(targetFile.replace('.ttf','.sfd'))
 
 	# Copy altuni
@@ -336,6 +343,11 @@ else:
 	for glyph in rejected_glyphs:
 		print("Removing glyph '{0}'".format(glyph))
 		mgen.removeGlyph(glyph)
+
+	# Mgen+ filter GSUB
+	for lookup in list(mgen.gsub_lookups) + list(mgen.gpos_lookups):
+		newFSL = tuple(tuple([s[0], tuple(lng for lng in s[1] if lng[0] not in ['latn', 'grek', 'cyrl'])]) for s in mgen.getLookupInfo(lookup)[2])
+		mgen.lookupSetFeatureList(lookup, newFSL)
 
 	# Merge Mgen+
 	font.mergeFonts(mgen)
