@@ -14,6 +14,8 @@ def selectGlyphsWorthOutputting(font, f = lambda _: True):
 
 _, targetFile, ilgcFile, rictyFile, rictyPatchFile, shsansFile, mgenFile, discordFile, *_ = argv + [None] * 8
 
+tmpFile = targetFile.replace('.ttf','.sfd')
+
 blockElements = {0x2429} \
 	| set(range(0x2500, 0x25a0)) \
 	| set(range(0x25e2, 0x25e6)) \
@@ -122,6 +124,12 @@ def searchLookup(font, otTag, scriptCode):
 					return lookup
 	return None
 
+# Reopen font (workaround)
+font.save(tmpFile)
+font.close()
+font = fontforge.open(tmpFile)
+
+# Unlink 
 font.selection.select("uni233D", "uni2349")
 font.unlinkReferences()
 rejected_glyphs = set()
@@ -302,9 +310,9 @@ else:
 				font.lookupSetFeatureList(lookup, newFSL)
 
 	# Reopen font (workaround)
-	font.save(targetFile.replace('.ttf','.sfd'))
+	font.save(tmpFile)
 	font.close()
-	font = fontforge.open(targetFile.replace('.ttf','.sfd'))
+	font = fontforge.open(tmpFile)
 
 	# Copy altuni
 	for glyph in set(font) & set(shsans):
@@ -369,9 +377,9 @@ else:
 	font.buildOrReplaceAALTFeatures()
 
 	# Reopen font (workaround)
-	font.save(targetFile.replace('.ttf','.sfd'))
+	font.save(tmpFile)
 	font.close()
-	font = fontforge.open(targetFile.replace('.ttf','.sfd'))
+	font = fontforge.open(tmpFile)
 
 	# Decompose nested references
 	fontforge_refsel.decomposeNestedRefs(font)
