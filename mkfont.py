@@ -126,7 +126,7 @@ font.selection.select("uni233D", "uni2349")
 font.unlinkReferences()
 rejected_glyphs = set()
 for glyph in font:
-	if re.search(r'[^v]+circle($|\.)', glyph):
+	if re.search(r'[^v]+circle($|\.)', glyph) and (glyph not in ['dottedcircle', 'Acircle', 'acircle', 'Acircle.koalib', 'acircle.koalib']):
 		rejected_glyphs.add(glyph)
 	elif re.search(r'\.smallnarrow', glyph):
 		rejected_glyphs.add(glyph)
@@ -348,6 +348,16 @@ else:
 	for lookup in list(mgen.gsub_lookups) + list(mgen.gpos_lookups):
 		newFSL = tuple(tuple([s[0], tuple(lng for lng in s[1] if lng[0] not in ['latn', 'grek', 'cyrl'])]) for s in mgen.getLookupInfo(lookup)[2])
 		mgen.lookupSetFeatureList(lookup, newFSL)
+
+	# Paste Ⓐⓐ (retaining Koalib glyph lookup)
+	mgen.selection.select("uni24B6")
+	mgen.copy()
+	font.selection.select("Acircle")
+	font.paste()
+	mgen.selection.select("uni24D0")
+	mgen.copy()
+	font.selection.select("acircle")
+	font.paste()
 
 	# Merge Mgen+
 	font.mergeFonts(mgen)
