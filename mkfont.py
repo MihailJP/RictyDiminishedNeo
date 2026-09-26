@@ -169,7 +169,7 @@ if not makingCache:
 	subtable = ricty.getLookupSubtables(lookup)[0]
 	for glyph in glyphsWorthOutputting(ricty):
 		if ricty[glyph].color == 0xff00ff:
-			glyphPattern = re.search(r'^(uni30[0-9A-F]{2})_(uni309[9A])\.ccmp$', glyph, re.A)
+			glyphPattern = re.search(r'^(uni30[0-9A-F]{2}|u1B[01][0-9A-F]{2})_(uni309[9A])\.ccmp$', glyph, re.A)
 			if glyphPattern:
 				print(glyph)
 				ricty[glyph].addPosSub(subtable, glyphPattern.group(1, 2))
