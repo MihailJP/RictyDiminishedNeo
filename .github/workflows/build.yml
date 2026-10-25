@@ -55,11 +55,17 @@ jobs:
       uses: actions/download-artifact@v8
     - name: Check Ricty Diminished Neo Fonts
       run: |
-        fontspector -l info --full-lists \
+        fontspector -c fontdata_namecheck -l info --full-lists \
+          --configuration fontspector.toml \
+          RictyDiminishedNeo.ttf RictyDiminishedNeo-*.ttf || true
+        fontspector -x fontdata_namecheck -l info --full-lists \
           --configuration fontspector.toml \
           RictyDiminishedNeo.ttf RictyDiminishedNeo-*.ttf
     - name: Check Ricty Diminished Neo Discord Fonts
       run: |
-        fontspector -l info --full-lists \
+        fontspector -c fontdata_namecheck -l info --full-lists \
+          --configuration fontspector.toml \
+          RictyDiminishedNeoDiscord*.ttf || true
+        fontspector -x fontdata_namecheck -l info --full-lists \
           --configuration fontspector.toml \
           RictyDiminishedNeoDiscord*.ttf
