@@ -14,19 +14,19 @@ all: ${TARGETS}
 .INTERMEDIATE: ${TARGETS:.ttf=.ttx} ${TARGETS:.ttf=.raw.sfd} ${TARGETS:.ttf=.raw.ttf} ${TARGETS:.ttf=.raw.ttx} ${TARGETS:.ttf=.raw.sfd}
 .PRECIOUS: ${CACHES}
 
-Inconsolata-LGC/Inconsolata-EX.sfd: Inconsolata-LGC/Inconsolata-LGC.sfd
+Inconsolata-LGC/Inconsolata-EX.sfd: Inconsolata-LGC/Inconsolata-LGC-Base.sfd
 	cd Inconsolata-LGC; $(MAKE) Inconsolata-EX.sfd
-Inconsolata-LGC/Inconsolata-EX-Italic.sfd: Inconsolata-LGC/Inconsolata-LGC-Italic.sfd
+Inconsolata-LGC/Inconsolata-EX-Italic.sfd: Inconsolata-LGC/Inconsolata-LGC-Base-Italic.sfd
 	cd Inconsolata-LGC; $(MAKE) Inconsolata-EX-Italic.sfd
-Inconsolata-LGC/Inconsolata-EX-Bold.sfd: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd
+Inconsolata-LGC/Inconsolata-EX-Bold.sfd: Inconsolata-LGC/Inconsolata-LGC-Base-Bold.sfd
 	cd Inconsolata-LGC; $(MAKE) Inconsolata-EX-Bold.sfd
-Inconsolata-LGC/Inconsolata-EX-BoldItalic.sfd: Inconsolata-LGC/Inconsolata-LGC-BoldItalic.sfd
+Inconsolata-LGC/Inconsolata-EX-BoldItalic.sfd: Inconsolata-LGC/Inconsolata-LGC-Base-BoldItalic.sfd
 	cd Inconsolata-LGC; $(MAKE) Inconsolata-EX-BoldItalic.sfd
 
-SourceHanSans-Regular.sfd: Inconsolata-LGC/Inconsolata-LGC.sfd RictyDiminished/RictyDiminished-Regular.ttf SourceHanSans/OTF/Japanese/SourceHanSans-Regular.otf
+SourceHanSans-Regular.sfd: Inconsolata-LGC/Inconsolata-EX.sfd RictyDiminished/RictyDiminished-Regular.ttf SourceHanSans/OTF/Japanese/SourceHanSans-Regular.otf
 	./mkfont.py $@ $(wordlist 1,2,$^) "" $(word 3,$^)
 
-SourceHanSans-Bold.sfd: Inconsolata-LGC/Inconsolata-LGC-Bold.sfd RictyDiminished/RictyDiminished-Bold.ttf SourceHanSans/OTF/Japanese/SourceHanSans-Bold.otf
+SourceHanSans-Bold.sfd: Inconsolata-LGC/Inconsolata-EX-Bold.sfd RictyDiminished/RictyDiminished-Bold.ttf SourceHanSans/OTF/Japanese/SourceHanSans-Bold.otf
 	./mkfont.py $@ $(wordlist 1,2,$^) "" $(word 3,$^)
 
 
